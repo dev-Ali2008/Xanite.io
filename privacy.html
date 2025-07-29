@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Xanite Emulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #666666;
+            --secondary-color: #9bf00b;
+            --dark-bg: #1e1e1e;
+            --darker-bg: #121212;
+            --light-text: #ffffff;
+            --gray-text: #aaaaaa;
+            --card-bg: #2a2a2a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--darker-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(30, 30, 30, 0.7), rgba(30, 30, 30, 0.7)),
+                url('https://github.com/dev-Ali2008/Xanite.io/blob/c2b40d777b0cb67359e4a229369a482bd1b49960/IMG_20250729_102617_388.jpg?raw=true');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Policy Section */
+        .policy-section {
+            padding: 80px 0;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .policy-container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        
+        .policy-item {
+            margin-bottom: 30px;
+        }
+        
+        .policy-item h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .policy-item h3 i {
+            margin-right: 10px;
+        }
+        
+        .policy-item p {
+            color: var(--gray-text);
+            line-height: 1.8;
+            margin-left: 30px;
+        }
+        
+        .highlight {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .policy-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <span class="logo-text">Xanite</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="policy-section">
+        <div class="container">
+            <div class="policy-container">
+                <h1 class="section-title">
+                    <i class="fas fa-shield-alt"></i> Privacy Policy
+                </h1>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-database"></i> Data Collection</h3>
+                    <p>
+                        Xanite Emulator <span class="highlight">does not collect</span> any personal data from your device. 
+                        We do not track, store, or share your personal information, game data, or device identifiers.
+                    </p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-gamepad"></i> Game Files</h3>
+                    <p>
+                        All game files remain <span class="highlight">locally on your device</span>. 
+                        We never upload your game ROMs or ISOs to any servers.
+                    </p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-cookie"></i> Cookies</h3>
+                    <p>
+                        This website uses only <span class="highlight">essential cookies</span> for basic functionality. 
+                        No tracking cookies or third-party analytics are used.
+                    </p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-lock"></i> Security</h3>
+                    <p>
+                        Your data is protected by <span class="highlight">local storage encryption</span>. 
+                        All app permissions are clearly disclosed during installation.
+                    </p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-code-branch"></i> Open Source</h3>
+                    <p>
+                        Xanite is <span class="highlight">open-source software</span>. 
+                        You can inspect the code on our <a href="https://github.com/dev-Ali2008/xanite" style="color: var(--secondary-color);">GitHub repository</a>.
+                    </p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-calendar-alt"></i> Changes</h3>
+                    <p>
+                        This policy was last updated on <span class="highlight">July 29, 2024</span>. 
+                        Any changes will be posted on this page.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="https://github.com/dev-Ali2008/xanite"><i class="fab fa-github"></i> GitHub</a></li>
+            </ul>
+            <p class="copyright">© 2024 Xanite Emulator Project. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
