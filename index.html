@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xanite Emulator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Root Variables (Your Original Theme) --- */
         :root {
-            --primary-color: #666666;
+            --primary-color: #666666; /* Changed to gray */
             --secondary-color: #9bf00b;
             --dark-bg: #1e1e1e;
             --darker-bg: #121212;
@@ -16,8 +15,7 @@
             --gray-text: #aaaaaa;
             --card-bg: #2a2a2a;
         }
-
-        /* --- Basic Styles (Your Original) --- */
+        
         * {
             margin: 0;
             padding: 0;
@@ -26,16 +24,16 @@
         }
         
         body {
-            background-color: var(--darker-bg);
-            color: var(--light-text);
-            line-height: 1.6;
-            background-image: 
-                linear-gradient(rgba(30, 30, 30, 0.7), rgba(30, 30, 30, 0.7)),
-                url('https://github.com/dev-Ali2008/Xanite.io/blob/c2b40d777b0cb67359e4a229369a482bd1b49960/IMG_20250729_102617_388.jpg?raw=true');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
+    background-color: var(--darker-bg);
+    color: var(--light-text);
+    line-height: 1.6;
+    background-image: 
+        linear-gradient(rgba(30, 30, 30, 0.7), rgba(30, 30, 30, 0.7)),
+        url('https://github.com/dev-Ali2008/Xanite.io/blob/c2b40d777b0cb67359e4a229369a482bd1b49960/IMG_20250729_102617_388.jpg?raw=true');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
         }
         
         .container {
@@ -44,7 +42,7 @@
             padding: 0 20px;
         }
         
-        /* --- Header Styles (Your Original) --- */
+        /* Header Styles */
         header {
             background-color: rgba(30, 30, 30, 0.9);
             padding: 20px 0;
@@ -55,15 +53,31 @@
             backdrop-filter: blur(5px);
         }
 
-        .logo-container {
+        <style>
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo-text {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: white;
+        margin-left: 10px;
+    }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
             display: flex;
             align-items: center;
         }
         
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: white;
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
         }
         
         nav {
@@ -72,21 +86,34 @@
             align-items: center;
         }
         
-        .nav-links { /* This is for DESKTOP view */
-            display: flex;
-            list-style: none;
-        }
+         .nav-links {
+        display: flex;
+        list-style: none;
+          }
         
         .nav-links li {
             margin-left: 30px;
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
+        
+.logo-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-image img {
+    max-width: 150px;  
+    height: auto;
+    border-radius: 50%;  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+        
+         .nav-links a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+         }
         
         .nav-links a i {
             margin-right: 8px;
@@ -95,226 +122,512 @@
         .nav-links a:hover {
             color: var(--secondary-color);
         }
-
+        
+        /* Mobile Menu */
         .mobile-menu-btn {
-            display: none; /* Hidden by default, shown in media query */
-            background: none;
-            border: 1px solid var(--light-text);
-            color: var(--light-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.3rem 0.6rem;
-            border-radius: 5px;
-            z-index: 1002;
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
         }
         
-        /* --- ADDED: New Overlay Mobile Navigation Styles --- */
-        .mobile-nav {
+        .mobile-menu {
+            display: none;
             position: fixed;
-            top: 0;
-            right: -100%; /* Start off-screen */
-            width: 85%;
-            max-width: 400px;
-            height: 100%;
-            background-color: #000;
-            padding: 2rem;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1001;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
+            top: 80px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
         }
-
-        .mobile-nav.is-open { /* This class is added by JavaScript to show the menu */
-            right: 0;
+        
+        .mobile-menu.active {
+            display: block;
         }
-
-        .menu-close-btn {
-            background: none;
-            border: none;
-            color: var(--light-text);
-            font-size: 2rem;
-            cursor: pointer;
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-        }
-
-        .mobile-nav .nav-links-mobile { /* Styling the links inside the overlay */
+        
+        .mobile-menu ul {
             list-style: none;
-            padding: 0;
-            margin: 4rem 0 0 0;
-            flex-grow: 1; 
         }
-
-        .mobile-nav .nav-links-mobile li {
-            margin-bottom: 1.5rem;
+        
+        .mobile-menu li {
+            margin-bottom: 15px;
         }
-
-        .mobile-nav .nav-links-mobile a {
-            color: var(--secondary-color); /* Using your theme color */
+        
+        .mobile-menu a {
+            color: white;
             text-decoration: none;
-            font-size: 1.25rem;
-            font-weight: 500;
-            transition: color 0.2s ease-in-out;
             display: flex;
             align-items: center;
         }
-
-        .mobile-nav .nav-links-mobile a:hover {
-            color: var(--light-text);
-        }
-
-        .mobile-nav .social-links-mobile {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .mobile-nav .social-links-mobile a {
-            color: var(--light-text);
-            font-size: 2rem;
-            text-decoration: none;
-            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-        .mobile-nav .social-links-mobile a:hover {
-            color: var(--secondary-color);
-            transform: scale(1.1);
+        
+        .mobile-menu a i {
+            margin-right: 10px;
         }
         
-        /* --- Responsive Section (Your Original, Modified) --- */
+        /* Hero Section */
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--gray-text);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            font-size: 1.1rem;
+        }
+
+        
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #555555;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Download Section */
+        .download-section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            border-radius: 2px;
+        }
+        
+        .download-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .github-releases {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .github-releases:hover {
+            transform: translateY(-5px);
+        }
+        
+        .github-releases h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .github-releases p {
+            margin-bottom: 25px;
+            color: var(--gray-text);
+        }
+        
+        /* Compatibility Section */
+        .compatibility {
+            padding: 80px 0;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .progress-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-category {
+            margin-bottom: 30px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .progress-label span:first-child {
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-label i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .progress-bar {
+            height: 30px;
+            background-color: var(--dark-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                            rgba(255, 255, 255, 0.1) 0%, 
+                            rgba(255, 255, 255, 0.3) 50%, 
+                            rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .playable {
+            background-color: var(--primary-color);
+            width: 0%;
+        }
+        
+        .playable i {
+            color: var(--primary-color);
+        }
+        
+        .ingame {
+            background-color: #0078d7;
+            width: 0%;
+        }
+        
+        .ingame i {
+            color: #0078d7;
+        }
+        
+        .boots {
+            background-color: #ffaa44;
+            width: 0%;
+        }
+        
+        .boots i {
+            color: #ffaa44;
+        }
+        
+        .nothing {
+            background-color: #e81123;
+            width: 100%;
+        }
+        
+        .nothing i {
+            color: #e81123;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--gray-text);
+        }
+        
+        /* Social Links Section */
+        .social-links {
+            padding: 60px 0;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .social-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(42, 42, 42, 0.7);
+        }
+        
+        .social-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .social-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .social-card a {
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .social-card a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links { /* Hides the desktop nav links */
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
                 display: none;
             }
             
-            .mobile-menu-btn { /* Shows the hamburger button */
+            .mobile-menu-btn {
                 display: block;
+            }
+            
+            .github-releases, .progress-container {
+                padding: 20px;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr;
             }
         }
         
-        /* --- ALL YOUR OTHER STYLES (hero, download, etc.) remain below --- */
-        .logo-image { text-align: center; margin-bottom: 20px; }
-        .logo-image img { max-width: 150px; height: auto; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); }
-        .hero { padding: 120px 0; text-align: center; background-color: rgba(30, 30, 30, 0.7); backdrop-filter: blur(5px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(to right, var(--secondary-color), var(--primary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
-        .hero p { font-size: 1.3rem; max-width: 700px; margin: 0 auto 30px; color: var(--gray-text); }
-        .btn { display: inline-flex; align-items: center; background-color: var(--primary-color); color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: all 0.3s; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border: none; font-size: 1.1rem; }
-        .btn i { margin-right: 10px; }
-        .btn:hover { background-color: #555555; transform: translateY(-2px); box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); }
-        .btn:active { transform: translateY(0); }
-        .download-section { padding: 80px 0; text-align: center; background-color: rgba(30, 30, 30, 0.8); backdrop-filter: blur(5px); }
-        .section-title { font-size: 2.8rem; margin-bottom: 50px; position: relative; display: inline-block; }
-        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: linear-gradient(to right, var(--secondary-color), var(--primary-color)); border-radius: 2px; }
-        .download-container { display: flex; flex-direction: column; align-items: center; }
-        .github-releases { background-color: var(--card-bg); border-radius: 10px; padding: 30px; width: 100%; max-width: 800px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); transition: transform 0.3s; margin-bottom: 30px; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .github-releases:hover { transform: translateY(-5px); }
-        .github-releases h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--secondary-color); }
-        .github-releases p { margin-bottom: 25px; color: var(--gray-text); }
-        .compatibility { padding: 80px 0; background-color: rgba(30, 30, 30, 0.8); backdrop-filter: blur(5px); }
-        .progress-container { max-width: 800px; margin: 0 auto; background-color: var(--card-bg); padding: 30px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .progress-category { margin-bottom: 30px; }
-        .progress-label { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1.1rem; }
-        .progress-label span:first-child { display: flex; align-items: center; }
-        .progress-label i { margin-right: 10px; font-size: 1.2rem; }
-        .progress-bar { height: 30px; background-color: var(--dark-bg); border-radius: 15px; overflow: hidden; position: relative; }
-        .progress-fill { height: 100%; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; position: relative; overflow: hidden; }
-        .progress-fill::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%); background-size: 200% 100%; animation: shimmer 2s infinite linear; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .playable { background-color: var(--primary-color); width: 0%; }
-        .playable i { color: var(--primary-color); }
-        .ingame { background-color: #0078d7; width: 0%; }
-        .ingame i { color: #0078d7; }
-        .boots { background-color: #ffaa44; width: 2%; }
-        .boots i { color: #ffaa44; }
-        .nothing { background-color: #e81123; width: 98%; }
-        .nothing i { color: #e81123; }
-        .features { padding: 80px 0; background-color: rgba(30, 30, 30, 0.8); backdrop-filter: blur(5px); }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
-        .feature-card { background-color: var(--card-bg); border-radius: 10px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); transition: transform 0.3s; border: 1px solid rgba(255, 255, 255, 0.1); text-align: center; }
-        .feature-card:hover { transform: translateY(-10px); }
-        .feature-icon { font-size: 3rem; margin-bottom: 20px; color: var(--secondary-color); }
-        .feature-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .feature-card p { color: var(--gray-text); }
-        .social-links { padding: 60px 0; text-align: center; background-color: rgba(30, 30, 30, 0.8); backdrop-filter: blur(5px); }
-        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 800px; margin: 50px auto 0; }
-        .social-card { background-color: var(--card-bg); border-radius: 10px; padding: 30px 20px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); transition: all 0.3s; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .social-card:hover { transform: translateY(-5px); background-color: rgba(42, 42, 42, 0.7); }
-        .social-icon { font-size: 2.5rem; margin-bottom: 15px; color: var(--secondary-color); }
-        .social-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        .social-card a { color: var(--gray-text); text-decoration: none; transition: color 0.3s; display: inline-block; margin-top: 10px; font-size: 0.9rem; }
-        .social-card a:hover { color: var(--secondary-color); }
-        footer { background-color: rgba(0, 0, 0, 0.9); padding: 40px 0; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-        .footer-links { display: flex; justify-content: center; list-style: none; margin-bottom: 30px; flex-wrap: wrap; }
-        .footer-links li { margin: 0 15px; }
-        .footer-links a { color: var(--gray-text); text-decoration: none; transition: color 0.3s; font-size: 0.9rem; }
-        .footer-links a:hover { color: var(--secondary-color); }
-        .copyright { color: var(--gray-text); font-size: 0.9rem; margin-top: 20px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .section-title { font-size: 2.2rem; }
-            .github-releases, .progress-container { padding: 20px; }
-            .social-grid { grid-template-columns: 1fr; }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <nav>
-                <div class="logo-container">
-                    <span class="logo-text">Xanite</span>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
-                    <li><a href="#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
-                    <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
-                    <li><a href="#social"><i class="fas fa-share-alt"></i> Community</a></li>
-                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <nav id="mobile-menu" class="mobile-nav">
-        <button id="menu-close" class="menu-close-btn">
-            <i class="fas fa-times"></i>
-        </button>
-        <ul class="nav-links-mobile">
-            <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
-            <li><a href="#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
-            <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
-            <li><a href="#social"><i class="fas fa-share-alt"></i> Community</a></li>
-            <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-            <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
-        </ul>
-        <div class="social-links-mobile">
-            <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-            <a href="https://github.com/dev-Ali2008/xanite" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        </div>
-    </nav>
+    <div class="container">
+        <nav>
+            <div class="logo-container">
+                <span class="logo-text">Xanite</span>
+            </div>
+            <ul class="nav-links">
+    <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
+    <li><a href="#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
+    <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
+    <li><a href="#social"><i class="fas fa-share-alt"></i> Community</a></li>
+    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li> <!-- أضف هذا السطر -->
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+</header>
+    
+      <script>
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+      </script>  
     
     <section class="hero fade-in">
-        <div class="container">
-            <div class="logo-image">
-                <img src="https://raw.githubusercontent.com/dev-Ali2008/Xanite.io/42b60538d2284e939d5b9ae422dd3416eae9024b/ic_launcher_background.png" alt="Xanite Logo">
-            </div>
-            <h1>Xanite</h1>
-            <p>Experience Xbox original and Xbox 360 games on your Android device.</p>
-            <a href="#download" class="btn"><i class="fas fa-download"></i> Get Latest Version</a>
+    <div class="container">
+        <div class="logo-image">
+            <img src="https://raw.githubusercontent.com/dev-Ali2008/Xanite.io/42b60538d2284e939d5b9ae422dd3416eae9024b/ic_launcher_background.png" alt="Xanite Logo">
         </div>
+        
+        <h1>Xanite</h1>
+        <p>Experience Xbox original and Xbox 360 games on your Android device.</p>
+        <a href="#download" class="btn">
+            <i class="fas fa-download"></i> Get Latest Version
+        </a>
+    </div>
     </section>
+
+    
     
     <section id="download" class="download-section">
         <div class="container">
@@ -323,7 +636,9 @@
                 <div class="github-releases fade-in delay-1">
                     <h3>GitHub Releases</h3>
                     <p>All releases are available on our GitHub repository. Click below to access the latest builds and previous versions.</p>
-                    <a href="https://github.com/dev-Ali2008/xanite/releases" target="_blank" class="btn"><i class="fab fa-github"></i> View on GitHub</a>
+                    <a href="https://github.com/dev-Ali2008/xanite/releases" target="_blank" class="btn">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
                 </div>
             </div>
         </div>
@@ -334,20 +649,43 @@
             <h2 class="section-title fade-in">Game Compatibility</h2>
             <div class="progress-container fade-in delay-1">
                 <div class="progress-category">
-                    <div class="progress-label"><span><i class="fas fa-check-circle"></i><strong>Playable</strong></span><span>0 / 0 (0%)</span></div>
-                    <div class="progress-bar"><div class="progress-fill playable" style="width: 0%;">0%</div></div>
+                    <div class="progress-label">
+                        <span><i class="fas fa-check-circle"></i><strong>Playable</strong></span>
+                        <span>0 / 0 (0%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill playable">0%</div>
+                    </div>
                 </div>
+                
                 <div class="progress-category">
-                    <div class="progress-label"><span><i class="fas fa-gamepad"></i><strong>In-Game</strong></span><span>0 / 0 (0%)</span></div>
-                    <div class="progress-bar"><div class="progress-fill ingame" style="width: 0%;">0%</div></div>
+                    <div class="progress-label">
+                        <span><i class="fas fa-gamepad"></i><strong>In-Game</strong></span>
+                        <span>0 / 0 (0%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill ingame">0%</div>
+                    </div>
                 </div>
+                
                 <div class="progress-category">
-                    <div class="progress-label"><span><i class="fas fa-power-off"></i><strong>Boots</strong></span><span>0 / 0 (2%)</span></div>
-                    <div class="progress-bar"><div class="progress-fill boots" style="width: 2%;">2%</div></div>
+                    <div class="progress-label">
+                        <span><i class="fas fa-power-off"></i><strong>Boots</strong></span>
+                        <span>0 / 0 (2%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill boots">2%</div>
+                    </div>
                 </div>
+                
                 <div class="progress-category">
-                    <div class="progress-label"><span><i class="fas fa-times-circle"></i><strong>Nothing</strong></span><span>0 / 0 (98%)</span></div>
-                    <div class="progress-bar"><div class="progress-fill nothing" style="width: 98%;">98%</div></div>
+                    <div class="progress-label">
+                        <span><i class="fas fa-times-circle"></i><strong>Nothing</strong></span>
+                        <span>0 / 0 (98%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill nothing">98%</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -358,32 +696,8 @@
             <h2 class="section-title fade-in">Features</h2>
             <div class="features-grid">
                 <div class="feature-card fade-in delay-1">
-                    <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
                     <h3>Performance</h3>
-                    <p>Optimized for Android devices with Software support, performance and compatibility in mind.</p>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('mobileMenuBtn');
-            const menuClose = document.getElementById('menu-close');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            if (menuToggle && mobileMenu) {
-                menuToggle.addEventListener('click', () => {
-                    mobileMenu.classList.add('is-open');
-                });
-            }
-
-            if (menuClose && mobileMenu) {
-                menuClose.addEventListener('click', () => {
-                    mobileMenu.classList.remove('is-open');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+                    <p>Optimized for Android devices with Software support, performance and c
