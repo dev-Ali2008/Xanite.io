@@ -84,6 +84,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         
          .nav-links {
@@ -92,7 +93,8 @@
           }
         
         .nav-links li {
-            margin-left: 30px;
+                margin: 15px 0;
+                width: 100%;
         }
 
         
@@ -109,10 +111,8 @@
 }
         
          .nav-links a {
-        color: white;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
+                padding: 10px 0;
+                font-size: 1.1rem;
          }
         
         .nav-links a i {
@@ -125,12 +125,15 @@
         
         /* Mobile Menu */
         .mobile-menu-btn {
-        display: none;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
         }
+        
         
         .mobile-menu {
             display: none;
@@ -531,10 +534,23 @@
             margin-top: 20px;
         }
         
-        /* Responsive */
+                /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--card-bg);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 30px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+                transition: transform 0.3s ease;
+                transform: translateX(100%);
+                z-index: 1000;
             }
             
             .hero p {
@@ -545,8 +561,9 @@
                 font-size: 2.2rem;
             }
             
-            .nav-links {
-                display: none;
+            nav-links.active {
+                display: flex;
+                transform: translateX(0);
             }
             
             .mobile-menu-btn {
@@ -587,25 +604,54 @@
 </head>
 <body>
     <header>
-    <div class="container">
-        <nav>
-            <div class="logo-container">
-                <span class="logo-text">Xanite</span>
-            </div>
-            <ul class="nav-links">
-    <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
-    <li><a href="#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
-    <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
-    <li><a href="#social"><i class="fas fa-share-alt"></i> Community</a></li>
-    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li> <!-- أضف هذا السطر -->
-            </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
-    </div>
-</header>
+            <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <span class="logo-text">Xanite</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
+                    <li><a href="#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
+                    <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
+                    <li><a href="#social"><i class="fas fa-share-alt"></i> Community</a></li>
+                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            const icon = mobileMenuBtn.querySelector('i');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // تغيير الأيقونة بين القائمة والإغلاق
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        });
+    </script>
     
       <script>
     document.getElementById('mobileMenuBtn').addEventListener('click', function() {
