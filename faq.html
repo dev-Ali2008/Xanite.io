@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Xanite Emulator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
         :root {
             --primary-color: #666666;
             --secondary-color: #9bf00b;
@@ -27,14 +28,6 @@
             background-color: var(--darker-bg);
             color: var(--light-text);
             line-height: 1.6;
-            /* Added background image for consistency with index.html */
-            background-image: 
-                linear-gradient(rgba(30, 30, 30, 0.7), rgba(30, 30, 30, 0.7)),
-                url('https://github.com/dev-Ali2008/Xanite.io/blob/c2b40d777b0cb67359e4a229369a482bd1b49960/IMG_20250729_102617_388.jpg?raw=true');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
         }
         
         .container {
@@ -63,7 +56,7 @@
             font-size: 1.8rem;
             font-weight: bold;
             color: white;
-            /* Removed margin-left: 10px; to match index.html logo alignment */
+            margin-left: 10px;
         }
         
         nav {
@@ -95,105 +88,11 @@
         .nav-links a:hover {
             color: var(--secondary-color);
         }
-
-        /* Mobile Menu Button - NEW */
-        .mobile-menu-btn {
-            display: none; /* Hidden by default, shown in media query */
-            background: none;
-            border: 1px solid var(--light-text);
-            color: var(--light-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.3rem 0.6rem;
-            border-radius: 5px;
-            z-index: 1002;
-        }
-
-        /* Mobile Navigation Overlay Styles - NEW */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Start off-screen */
-            width: 85%;
-            max-width: 400px;
-            height: 100%;
-            background-color: #000;
-            padding: 2rem;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1001;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-nav.is-open { /* This class is added by JavaScript to show the menu */
-            right: 0;
-        }
-
-        .menu-close-btn {
-            background: none;
-            border: none;
-            color: var(--light-text);
-            font-size: 2rem;
-            cursor: pointer;
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-        }
-
-        .mobile-nav .nav-links-mobile { /* Styling the links inside the overlay */
-            list-style: none;
-            padding: 0;
-            margin: 4rem 0 0 0;
-            flex-grow: 1; 
-        }
-
-        .mobile-nav .nav-links-mobile li {
-            margin-bottom: 1.5rem;
-        }
-
-        .mobile-nav .nav-links-mobile a {
-            color: var(--secondary-color); /* Using your theme color */
-            text-decoration: none;
-            font-size: 1.25rem;
-            font-weight: 500;
-            transition: color 0.2s ease-in-out;
-            display: flex;
-            align-items: center;
-        }
-
-        .mobile-nav .nav-links-mobile a:hover {
-            color: var(--light-text);
-        }
-
-        .mobile-nav .social-links-mobile { /* NEW: Social links for mobile menu */
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center; /* Center social icons */
-            padding-top: 20px; /* Space from links */
-            border-top: 1px solid rgba(255,255,255,0.1); /* Separator */
-            margin-top: auto; /* Push to bottom */
-        }
-
-        .mobile-nav .social-links-mobile a {
-            color: var(--light-text);
-            font-size: 2rem;
-            text-decoration: none;
-            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-        .mobile-nav .social-links-mobile a:hover {
-            color: var(--secondary-color);
-            transform: scale(1.1);
-        }
         
         /* FAQ Section */
         .faq-section {
             padding: 80px 0;
-            background-color: rgba(30, 30, 30, 0.8); /* Adjusted to match index.html style */
-            backdrop-filter: blur(5px); /* Added for consistency */
-            min-height: calc(100vh - 100px); /* Ensures content pushes footer down */
+            background-color: var(--dark-bg);
         }
         
         .faq-header {
@@ -222,12 +121,12 @@
         }
         
         .faq-item {
-            background-color: var(--card-bg); /* Changed to card-bg for consistency */
+            background-color: var(--faq-bg);
             border-radius: 8px;
             margin-bottom: 20px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Adjusted border */
+            border-left: 4px solid var(--secondary-color);
             transition: all 0.3s ease;
         }
         
@@ -244,37 +143,31 @@
             align-items: center;
             font-weight: 600;
             font-size: 1.2rem;
-            color: var(--light-text); /* Ensure question text is light */
         }
         
-        .faq-question i.fas.fa-question-circle { /* Target specific icon */
-            color: var(--secondary-color); /* Kept primary icon green */
+        .faq-question i {
+            color: var(--secondary-color);
             margin-right: 15px;
             font-size: 1.1rem;
-        }
-
-        .faq-question i.fas.fa-chevron-right { /* Target chevron icon */
             transition: transform 0.3s;
-            margin-left: 15px; /* Add margin to separate from text */
-            color: var(--gray-text); /* Chevron color */
         }
         
         .faq-answer {
             padding: 0 20px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Smooth transition */
+            transition: max-height 0.3s ease, padding 0.3s ease;
             color: var(--gray-text);
             border-top: 1px solid transparent;
         }
         
         .faq-item.active .faq-answer {
-            max-height: 300px; /* You might need to adjust this if answers are very long */
-            padding: 15px 20px 20px; /* Added top padding when active */
+            max-height: 300px;
+            padding: 0 20px 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .faq-item.active .faq-question i.fa-chevron-right { /* Rotate only the chevron */
+        .faq-item.active .faq-question i {
             transform: rotate(90deg);
         }
         
@@ -298,7 +191,6 @@
             font-weight: bold;
             transition: all 0.3s;
             margin-top: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added box-shadow */
         }
         
         .back-btn i {
@@ -308,7 +200,6 @@
         .back-btn:hover {
             background-color: #555555;
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Added box-shadow */
         }
         
         /* Footer */
@@ -360,11 +251,7 @@
             }
             
             .nav-links {
-                display: none; /* Hide desktop nav links on small screens */
-            }
-            /* Show mobile menu button on small screens */
-            .mobile-menu-btn {
-                display: block; 
+                display: none;
             }
         }
     </style>
@@ -381,27 +268,10 @@
                     <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
                     <li><a href="index.html#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
                     <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li> <li><a href="index.html#social"><i class="fas fa-share-alt"></i> Community</a></li> </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                </ul>
             </nav>
         </div>
     </header>
-
-    <nav id="mobile-menu" class="mobile-nav">
-        <button id="menu-close" class="menu-close-btn">
-            <i class="fas fa-times"></i>
-        </button>
-        <ul class="nav-links-mobile">
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
-            <li><a href="index.html#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
-            <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-            <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li> <li><a href="index.html#social"><i class="fas fa-share-alt"></i> Community</a></li> </ul>
-        <div class="social-links-mobile">
-            <a href="https://discord.gg/U5kytJ4dub" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a> <a href="https://github.com/dev-Ali2008/xanite" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a> </div>
-    </nav>
     
     <section class="faq-section">
         <div class="container">
@@ -454,7 +324,8 @@
                     </div>
                     <div class="faq-answer">
                         <p>Yes! Xanite will offer two
-                        versions: a free version and a premium version called <strong>Xanite Gold!</strong>.</p>
+
+versions: a free version and a premium version called <strong>Xanite Gold!</strong>.</p>
                     </div>
                 </div>
                 
@@ -520,16 +391,33 @@
                 <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
                 <li><a href="index.html#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
                 <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li> <li><a href="index.html#social"><i class="fas fa-share-alt"></i> Community</a></li> </ul>
+                <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+            </ul>
             <p class="copyright">© 2024 Xanite Emulator Project. All rights reserved.</p>
         </div>
     </footer>
     
     <script>
+        // FAQ Accordion Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Menu Functionality (Copied from index.html)
-            const menuToggle = document.getElementById('mobileMenuBtn');
-            const menuClose = document.getElementById('menu-close');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            if (menuToggle && mobileMenhttps://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css666666121212252525index.htmlhttps://github.com/dev-Ali2008/Xanite.io/blob/c2b40d777b0cb67359e4a229369a482bd1b49960/IMG_20250729_102617_388.jpg?raw=true0mobile-nav.is-https://discord.gg/U5kytJ4dub555555360https://github.com/dev-Ali2008/xanite2024
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css6666661212122525250555555360https://github.com/dev-Ali2008/xanitehttps://discord.gg/U5kytJ4dub2024
