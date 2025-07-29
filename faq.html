@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Xanite Emulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #666666;
+            --secondary-color: #9bf00b;
+            --dark-bg: #1e1e1e;
+            --darker-bg: #121212;
+            --light-text: #ffffff;
+            --gray-text: #aaaaaa;
+            --card-bg: #2a2a2a;
+            --faq-bg: #252525;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--darker-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--dark-bg);
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .faq-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .faq-header p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--faq-bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .faq-question i {
+            color: var(--secondary-color);
+            margin-right: 15px;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--gray-text);
+            border-top: 1px solid transparent;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 20px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(90deg);
+        }
+        
+        .faq-answer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #555555;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .faq-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .faq-question {
+                font-size: 1.1rem;
+                padding: 15px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <span class="logo-text">Xanite</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
+                    <li><a href="index.html#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
+                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h1>Frequently Asked Questions</h1>
+                <p>Find answers to common questions about Xanite Emulator</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>What is Xanite?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Xanite is a fast and optimized emulator for <strong>Android</strong> that supports <strong>OG Xbox</strong> and <strong>Xbox 360</strong> games. It's built to bring classic Xbox titles to mobile devices with smooth performance and high compatibility.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>What platforms does Xanite support?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Xanite is currently only available for <strong>Android</strong>. Other platforms like iOS or PC are not supported yet.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>What consoles does it emulate?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Xanite emulates:<br>
+                        - <strong>Original Xbox (2001)</strong><br>
+                        - <strong>Xbox 360 (2005)</strong></p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Is Xanite free to use?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Xanite is completely <strong>free to download and use</strong>, with no premium tiers or locked features.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Where can I download it?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can download the latest version from the <a href="index.html#download">Downloads</a> section on our main page.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Does Xanite come with games?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. You must <strong>provide your own game files (ISOs)</strong>. Xanite does <strong>not include any copyrighted games</strong>.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Is Xanite safe? I heard it has a virus.</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>That's <strong>false</strong>. Xanite is clean and safe to use.<br>
+                        - No viruses, malware, or spyware.<br>
+                        We encourage transparency — check out our code/builds via <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a>.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Where can I report bugs or get help?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can join our <a href="https://discord.gg/U5kytJ4dub" target="_blank">Discord</a> or post issues/ideas on <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a> to get support or suggest features.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
+                <li><a href="index.html#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+            </ul>
+            <p class="copyright">© 2024 Xanite Emulator Project. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // FAQ Accordion Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
