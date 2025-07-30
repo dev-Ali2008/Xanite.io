@@ -758,39 +758,266 @@
         </div>
     </section>
     
-    <section id="social" class="social-links">
-        <div class="container">
-            <h2 class="section-title fade-in">Join Our Community</h2>
-            <div class="social-grid">
-                <div class="social-card fade-in delay-1">
-                    <div class="social-icon">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <h3>YouTube</h3>
-                    <p>Watch tutorials and updates</p>
-                    <a href="https://youtube.com/@emulator_xanite?si=n7TRv-Gyh3mDktlV" target="_blank">youtube.com/@emulator_xanite</a>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    
+    /* Xanite Logo Styles */
+    .xanite-logo-container {
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    
+    .xanite-logo {
+        position: relative;
+        width: 90vw;
+        height: 30vh;
+        transform-style: preserve-3d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .letters-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-style: preserve-3d;
+    }
+    
+    .letter {
+        position: absolute;
+        transform-style: preserve-3d;
+        color: #0f0;
+        font-size: 16vw;
+        font-weight: bold;
+        text-shadow: 0 0 10px #0f0;
+        width: 14vw;
+        height: 20vh;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.1s ease;
+    }
+    
+    .letter::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: currentColor;
+        opacity: 0.2;
+        transform: translateZ(-20px);
+        filter: blur(10px);
+        border-radius: 5px;
+    }
+    
+    .letter::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        background: currentColor;
+        bottom: -10px;
+        left: 0;
+        transform: translateZ(-10px);
+        filter: blur(3px);
+        opacity: 0.5;
+    }
+    
+    /* Social Links Styles */
+    .social-links {
+        width: 100%;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        color: #0f0;
+        text-shadow: 0 0 10px #0f0;
+    }
+    
+    .social-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .social-card {
+        background: rgba(0, 30, 0, 0.5);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border: 1px solid #0f0;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    }
+    
+    .social-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+    }
+    
+    .social-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #0f0;
+    }
+    
+    .social-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+    
+    .social-card p {
+        margin-bottom: 15px;
+        color: #ccc;
+    }
+    
+    .social-card a {
+        color: #0f0;
+        text-decoration: none;
+        word-break: break-all;
+    }
+    
+    .social-card a:hover {
+        text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+        .xanite-logo {
+            height: 25vh;
+        }
+        
+        .social-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Xanite 3D Logo -->
+<div class="xanite-logo-container">
+    <div class="xanite-logo">
+        <div class="letters-container" id="logo">
+            <div class="letter X">X</div>
+            <div class="letter A">A</div>
+            <div class="letter N">N</div>
+            <div class="letter I">I</div>
+            <div class="letter T">T</div>
+            <div class="letter E">E</div>
+        </div>
+    </div>
+</div>
+
+<!-- Social Links Section -->
+<section id="social" class="social-links">
+    <div class="container">
+        <h2 class="section-title">Join Our Community</h2>
+        <div class="social-grid">
+            <div class="social-card">
+                <div class="social-icon">
+                    <i class="fab fa-youtube"></i>
                 </div>
-                
-                <div class="social-card fade-in delay-2">
-                    <div class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Discord</h3>
-                    <p>Chat with the community</p>
-                    <a href="https://discord.gg/U5kytJ4dub" target="_blank">discord.gg/U5kytJ4dub</a>
+                <h3>YouTube</h3>
+                <p>Watch tutorials and updates</p>
+                <a href="https://youtube.com/@emulator_xanite?si=n7TRv-Gyh3mDktlV" target="_blank">youtube.com/@emulator_xanite</a>
+            </div>
+            
+            <div class="social-card">
+                <div class="social-icon">
+                    <i class="fab fa-discord"></i>
                 </div>
-                
-                <div class="social-card fade-in delay-3">
-                    <div class="social-icon">
-                        <i class="fab fa-telegram"></i>
-                    </div>
-                    <h3>Telegram</h3>
-                    <p>Get latest news</p>
-                    <a href="https://t.me/xanite_xbox" target="_blank">t.me/xanite_xbox</a>
+                <h3>Discord</h3>
+                <p>Chat with the community</p>
+                <a href="https://discord.gg/U5kytJ4dub" target="_blank">discord.gg/U5kytJ4dub</a>
+            </div>
+            
+            <div class="social-card">
+                <div class="social-icon">
+                    <i class="fab fa-telegram"></i>
                 </div>
+                <h3>Telegram</h3>
+                <p>Get latest news</p>
+                <a href="https://t.me/xanite_xbox" target="_blank">t.me/xanite_xbox</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    const letters = document.querySelectorAll('.letter');
+    
+    // Letter positions in 3D space
+    const letterPositions = [
+        { x: -250, y: 0, z: 0 },
+        { x: -150, y: 0, z: 0 },
+        { x: -50, y: 0, z: 0 },
+        { x: 50, y: 0, z: 0 },
+        { x: 150, y: 0, z: 0 },
+        { x: 250, y: 0, z: 0 }
+    ];
+    
+    let rotateY = 0;
+    let rotateX = 10;
+    
+    // Animation function
+    function animate() {
+        rotateY += 0.5;
+        
+        letters.forEach((letter, index) => {
+            const wave = Math.sin((rotateY + index * 60) * 0.02) * 10;
+            const scale = window.innerWidth / 600;
+            
+            letter.style.transform = `
+                translateX(${letterPositions[index].x * scale}px)
+                translateY(${wave}px)
+                translateZ(${letterPositions[index].z}px)
+                rotateY(${rotateY}deg)
+                rotateX(${rotateX}deg)
+            `;
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Handle mouse movement for interactive rotation
+    document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+        
+        rotateX = 10 + yAxis;
+    });
+    
+    // Start animation
+    animate();
+    
+    // Load Font Awesome for icons
+    const faScript = document.createElement('script');
+    faScript.src = 'https://kit.fontawesome.com/a076d05399.js';
+    faScript.crossOrigin = 'anonymous';
+    document.head.appendChild(faScript);
+</script>
     
     <footer class="fade-in">
         <div class="c ontainer">
