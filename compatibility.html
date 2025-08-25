@@ -45,7 +45,6 @@
             font-size: 28px;
             cursor: pointer;
             color: var(--light-text);
-            margin-right: 20px;
         }
 
         .sidebar {
@@ -54,7 +53,7 @@
             position: fixed;
             z-index: 200;
             top: 0;
-            left: 0;
+            right: 0;
             background-color: var(--dark-bg);
             overflow-x: hidden;
             transition: 0.4s;
@@ -77,7 +76,7 @@
         .sidebar .close-btn {
             position: absolute;
             top: 0;
-            right: 20px;
+            left: 20px;
             font-size: 36px;
             cursor: pointer;
         }
@@ -212,7 +211,7 @@
 </head>
 <body>
 
-    <!-- Sidebar -->
+    <!-- Sidebar on right -->
     <div id="sidebar" class="sidebar">
         <span class="close-btn" onclick="closeSidebar()">&times;</span>
         <a href="index.html">Home</a>
@@ -221,12 +220,10 @@
         <a href="privacy.html">Privacy</a>
     </div>
 
-    <!-- Header with Hamburger Menu -->
+    <!-- Header with Hamburger Menu on right -->
     <header>
+        <nav style="color: white; font-size: 1.5rem; font-weight: bold;">Xanite</nav>
         <span class="menu-button" onclick="openSidebar()">&#9776;</span>
-        <nav>
-            <a href="index.html">Xanite</a>
-        </nav>
     </header>
 
     <div class="container">
@@ -255,7 +252,7 @@
         </div>
 
         <div class="compatibility-grid" id="gamesContainer">
-            <!-- Game cards will be populated dynamically here -->
+            <!-- Game cards will appear here -->
         </div>
     </div>
 
@@ -268,20 +265,11 @@
             document.getElementById("sidebar").style.width = "0";
         }
 
-        // Sample game database (can be expanded to 100+ games)
         const gamesDatabase = [
             { title: "Halo: Combat Evolved", status: "unknown", year: 2001, genre: "FPS", image: "https://upload.wikimedia.org/wikipedia/en/8/80/Halo_-_Combat_Evolved_%28XBox_version_-_box_art%29.jpg" },
             { title: "Halo 2", status: "unknown", year: 2004, genre: "FPS", image: "https://uptoroms.com/wp-content/uploads/2025/07/Halo-2.webp" },
             { title: "Doom 3", status: "unknown", year: 2005, genre: "FPS", image: "https://m.media-amazon.com/images/I/51NLiCfYFSL._UF1000,1000_QL80_FMwebp_.jpg" },
-            { title: "Freedom Fighters", status: "unknown", year: 2003, genre: "Shooter", image: "https://upload.wikimedia.org/wikipedia/en/5/5f/Freedom_Fighters_%28video_game_cover_art%29.jpg" },
-            { title: "Ninja Gaiden", status: "unknown", year: 2004, genre: "Action", image: "https://dn721707.ca.archive.org/0/items/ninja-gaiden-black/2.jpg" },
-            { title: "Fable", status: "unknown", year: 2004, genre: "RPG", image: "https://m.media-amazon.com/images/I/51XbwsvWBrL._UF1000,1000_QL80_FMwebp_.jpg" },
-            { title: "Counter-Strike Xbox Edition", status: "unknown", year: 2003, genre: "FPS", image: "https://romsfun.com/wp-content/uploads/2019/11/counter-strike-xbox.png" },
-            { title: "Forza Motorsport", status: "unknown", year: 2005, genre: "Racing", image: "https://upload.wikimedia.org/wikipedia/en/c/ce/Forza_Motorsport_Coverart.png" },
-            { title: "Project Gotham Racing 2", status: "unknown", year: 2003, genre: "Racing", image: "https://www.giantbomb.com/a/uploads/scale_small/8/87790/2213166-box_pgr2.png" },
-            { title: "Crimson Skies: High Road to Revenge", status: "unknown", year: 2003, genre: "Action", image: "https://upload.wikimedia.org/wikipedia/en/3/3c/Crimson_Skies_High_Road_to_Revenge_Boxart.jpg" },
-            { title: "Star Wars: Knights of the Old Republic", status: "unknown", year: 2003, genre: "RPG", image: "https://m.media-amazon.com/images/I/719KDeAZa9L._SL1500_.jpg" },
-            { title: "MechAssault", status: "unknown", year: 2002, genre: "Action", image: "https://upload.wikimedia.org/wikipedia/en/1/16/MechAssault_Coverart.png" }
+            { title: "Freedom Fighters", status: "unknown", year: 2003, genre: "Shooter", image: "https://upload.wikimedia.org/wikipedia/en/5/5f/Freedom_Fighters_%28video_game_cover_art%29.jpg" }
         ];
 
         function displayGames() {
@@ -330,7 +318,6 @@
                         <div class="game-details">${game.year} | ${game.genre}</div>
                     </div>
                 `;
-
                 container.appendChild(gameCard);
             });
         }
