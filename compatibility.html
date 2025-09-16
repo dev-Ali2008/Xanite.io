@@ -324,12 +324,12 @@
         </div>
         
         <div class="platform-selector">
-            <button class="platform-btn active" data-platform="original">Xbox Original (1800 Games)</button>
-            <button class="platform-btn" data-platform="360">Xbox 360 (100 Games)</button>
+            <button class="platform-btn active" data-platform="original">Xbox Original </button>
+            <button class="platform-btn" data-platform="360">Xbox 360 </button>
         </div>
 
         <div class="filter-container">
-            <input type="checkbox" id="filter-unknown" class="filter-checkbox" checked>
+            <input type="checkbox" id="filter-" clasunknowns="filter-checkbox" checked>
             <label for="filter-unknown" class="filter-label filter-unknown">Unknown</label>
             
             <input type="checkbox" id="filter-broken" class="filter-checkbox" checked>
@@ -375,51 +375,51 @@
     <script>
         // قائمة ألعاب Xbox Original الحقيقية
         const xboxOriginalGames = [
-            { title: "Halo: Combat Evolved", status: "perfect", year: 2001, genre: "FPS" },
-            { title: "Halo 2", status: "perfect", year: 2004, genre: "FPS" },
-            { title: "Fable: The Lost Chapters", status: "playable", year: 2005, genre: "RPG" },
-            { title: "Star Wars: Knights of the Old Republic", status: "playable", year: 2003, genre: "RPG" },
-            { title: "Ninja Gaiden Black", status: "playable", year: 2005, genre: "Action" },
-            { title: "Forza Motorsport", status: "playable", year: 2005, genre: "Racing" },
-            { title: "Project Gotham Racing 2", status: "starts", year: 2003, genre: "Racing" },
-            { title: "Crimson Skies: High Road to Revenge", status: "playable", year: 2003, genre: "Action" },
-            { title: "The Elder Scrolls III: Morrowind", status: "starts", year: 2002, genre: "RPG" },
-            { title: "Jade Empire", status: "playable", year: 2005, genre: "RPG" },
-            { title: "Psychonauts", status: "playable", year: 2005, genre: "Adventure" },
-            { title: "Tom Clancy's Splinter Cell", status: "playable", year: 2002, genre: "Stealth" },
-            { title: "Prince of Persia: The Sands of Time", status: "playable", year: 2003, genre: "Action" },
-            { title: "Burnout 3: Takedown", status: "starts", year: 2004, genre: "Racing" },
-            { title: "Grand Theft Auto: San Andreas", status: "intro", year: 2005, genre: "Action" },
-            { title: "Dead or Alive 3", status: "playable", year: 2001, genre: "Fighting" },
-            { title: "Doom 3", status: "playable", year: 2005, genre: "FPS" },
-            { title: "Half-Life 2", status: "starts", year: 2005, genre: "FPS" },
-            { title: "The Chronicles of Riddick: Escape from Butcher Bay", status: "playable", year: 2004, genre: "Action" },
-            { title: "SSX 3", status: "playable", year: 2003, genre: "Sports" },
+            { title: "Halo: Combat Evolved", status: "Unknown", year: 2001, genre: "FPS" },
+            { title: "Halo 2", status: "Unknown", year: 2004, genre: "FPS" },
+            { title: "Fable: The Lost Chapters", status: "Unknown", year: 2005, genre: "RPG" },
+            { title: "Star Wars: Knights of the Old Republic", status: "Unknown", year: 2003, genre: "RPG" },
+            { title: "Ninja Gaiden Black", status: "Unknown", year: 2005, genre: "Action" },
+            { title: "Forza Motorsport", status: "Unknown", year: 2005, genre: "Racing" },
+            { title: "Project Gotham Racing 2", status: "Unknown", year: 2003, genre: "Racing" },
+            { title: "Crimson Skies: High Road to Revenge", status: "Unknown", year: 2003, genre: "Action" },
+            { title: "The Elder Scrolls III: Morrowind", status: "Unknown", year: 2002, genre: "RPG" },
+            { title: "Jade Empire", status: "Unknown", year: 2005, genre: "RPG" },
+            { title: "Psychonauts", status: "Unknown", year: 2005, genre: "Adventure" },
+            { title: "Tom Clancy's Splinter Cell", status: "Unknown", year: 2002, genre: "Stealth" },
+            { title: "Prince of Persia: The Sands of Time", status: "Unknown", year: 2003, genre: "Action" },
+            { title: "Burnout 3: Takedown", status: "Unknown", year: 2004, genre: "Racing" },
+            { title: "Grand Theft Auto: San Andreas", status: "Unknown", year: 2005, genre: "Action" },
+            { title: "Dead or Alive 3", status: "Unknown", year: 2001, genre: "Fighting" },
+            { title: "Doom 3", status: "Unknown", year: 2005, genre: "FPS" },
+            { title: "Half-Life 2", status: "Unknown", year: 2005, genre: "FPS" },
+            { title: "The Chronicles of Riddick: Escape from Butcher Bay", status: "Unknown", year: 2004, genre: "Action" },
+            { title: "SSX 3", status: "Unknown", year: 2003, genre: "Sports" },
             // يمكن إضافة المزيد من الألعاب هنا لتصل إلى 1800 لعبة
         ];
 
         // قائمة ألعاب Xbox 360 الحقيقية
         const xbox360Games = [
-            { title: "Halo 3", status: "perfect", year: 2007, genre: "FPS" },
-            { title: "Gears of War", status: "perfect", year: 2006, genre: "TPS" },
-            { title: "The Elder Scrolls V: Skyrim", status: "playable", year: 2011, genre: "RPG" },
-            { title: "Call of Duty 4: Modern Warfare", status: "perfect", year: 2007, genre: "FPS" },
-            { title: "Red Dead Redemption", status: "playable", year: 2010, genre: "Action" },
-            { title: "BioShock", status: "perfect", year: 2007, genre: "FPS" },
-            { title: "Mass Effect", status: "playable", year: 2007, genre: "RPG" },
-            { title: "Gears of War 2", status: "perfect", year: 2008, genre: "TPS" },
-            { title: "Halo: Reach", status: "perfect", year: 2010, genre: "FPS" },
-            { title: "Fallout 3", status: "playable", year: 2008, genre: "RPG" },
-            { title: "Grand Theft Auto V", status: "starts", year: 2013, genre: "Action" },
-            { title: "Forza Motorsport 4", status: "playable", year: 2011, genre: "Racing" },
-            { title: "Batman: Arkham City", status: "playable", year: 2011, genre: "Action" },
-            { title: "Call of Duty: Black Ops", status: "perfect", year: 2010, genre: "FPS" },
-            { title: "Fable II", status: "playable", year: 2008, genre: "RPG" },
-            { title: "Portal 2", status: "perfect", year: 2011, genre: "Puzzle" },
-            { title: "The Orange Box", status: "perfect", year: 2007, genre: "Compilation" },
-            { title: "Left 4 Dead 2", status: "perfect", year: 2009, genre: "FPS" },
-            { title: "Assassin's Creed II", status: "playable", year: 2009, genre: "Action" },
-            { title: "Halo 4", status: "perfect", year: 2012, genre: "FPS" },
+            { title: "Halo 3", status: "Unknown", year: 2007, genre: "FPS" },
+            { title: "Gears of War", status: "Unknown", year: 2006, genre: "TPS" },
+            { title: "The Elder Scrolls V: Skyrim", status: "Unknown", year: 2011, genre: "RPG" },
+            { title: "Call of Duty 4: Modern Warfare", status: "Unknown", year: 2007, genre: "FPS" },
+            { title: "Red Dead Redemption", status: "Unknown", year: 2010, genre: "Action" },
+            { title: "BioShock", status: "Unknown", year: 2007, genre: "FPS" },
+            { title: "Mass Effect", status: "Unknown", year: 2007, genre: "RPG" },
+            { title: "Gears of War 2", status: "Unknown", year: 2008, genre: "TPS" },
+            { title: "Halo: Reach", status: "Unknown", year: 2010, genre: "FPS" },
+            { title: "Fallout 3", status: "Unknown", year: 2008, genre: "RPG" },
+            { title: "Grand Theft Auto V", status: "Unknown", year: 2013, genre: "Action" },
+            { title: "Forza Motorsport 4", status: "Unknown", year: 2011, genre: "Racing" },
+            { title: "Batman: Arkham City", status: "Unknown", year: 2011, genre: "Action" },
+            { title: "Call of Duty: Black Ops", status: "Unknown", year: 2010, genre: "FPS" },
+            { title: "Fable II", status: "Unknown", year: 2008, genre: "RPG" },
+            { title: "Portal 2", status: "Unknown", year: 2011, genre: "Puzzle" },
+            { title: "The Orange Box", status: "Unknown", year: 2007, genre: "Compilation" },
+            { title: "Left 4 Dead 2", status: "Unknown", year: 2009, genre: "FPS" },
+            { title: "Assassin's Creed II", status: "Unknown", year: 2009, genre: "Action" },
+            { title: "Halo 4", status: "Unknown", year: 2012, genre: "FPS" },
             // يمكن إضافة المزيد من الألعاب هنا لتصل إلى 100 لعبة
         ];
 
