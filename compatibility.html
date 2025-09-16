@@ -8,9 +8,7 @@
     <style>
         :root {
             --primary-color: #666666;
-            --secondary-color: #107c10;
-            --xbox-green: #107c10;
-            --xbox-dark-green: #0f5c0f;
+            --secondary-color: #9bf00b;
             --dark-bg: #1e1e1e;
             --darker-bg: #121212;
             --light-text: #ffffff;
@@ -24,18 +22,12 @@
             --perfect: #4CAF50;
         }
         
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
         body {
             background-color: var(--darker-bg);
             color: var(--light-text);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            padding-bottom: 40px;
+            margin: 0;
+            padding: 0;
         }
         
         .container {
@@ -45,73 +37,49 @@
         }
         
         header {
-            background: linear-gradient(to right, var(--xbox-green), var(--xbox-dark-green));
+            background-color: rgba(30, 30, 30, 0.9);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: white;
-        }
-        
-        .logo-icon {
-            color: white;
-            font-size: 2rem;
         }
         
         .search-container {
             margin: 20px 0;
             text-align: center;
-            position: relative;
         }
         
         #searchInput {
             width: 60%;
             padding: 12px 20px;
             border-radius: 25px;
-            border: 2px solid var(--xbox-green);
+            border: none;
             background-color: var(--card-bg);
             color: white;
             font-size: 16px;
+        }
+        
+        .platform-selector {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 15px;
+        }
+        
+        .platform-btn {
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: none;
+            background-color: var(--card-bg);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s;
         }
         
-        #searchInput:focus {
-            outline: none;
-            border-color: var(--playable);
-            box-shadow: 0 0 0 2px rgba(155, 240, 11, 0.3);
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 21%;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray-text);
-        }
-        
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
+        .platform-btn.active {
+            background-color: var(--secondary-color);
+            color: black;
         }
         
         .filter-container {
@@ -119,6 +87,7 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 10px;
+            margin: 20px 0;
         }
         
         .filter-checkbox {
@@ -136,7 +105,6 @@
         
         .filter-label:hover {
             opacity: 0.8;
-            transform: translateY(-2px);
         }
         
         .filter-unknown { background-color: var(--unknown); }
@@ -150,26 +118,6 @@
             box-shadow: 0 0 0 2px white;
         }
         
-        .sort-container {
-            text-align: center;
-        }
-        
-        #sortSelect {
-            padding: 8px 15px;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            color: white;
-            border: 2px solid var(--xbox-green);
-            cursor: pointer;
-        }
-        
-        .stats {
-            text-align: center;
-            margin: 15px 0;
-            color: var(--gray-text);
-            font-size: 0.9rem;
-        }
-        
         .compatibility-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -181,25 +129,19 @@
             background-color: var(--card-bg);
             border-radius: 8px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             cursor: pointer;
-            position: relative;
+            padding: 15px;
+            border-left: 5px solid var(--unknown);
         }
         
         .game-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-        
-        .game-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-bottom: 3px solid var(--unknown);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
         .game-info {
-            padding: 15px;
+            padding: 0;
         }
         
         .game-title {
@@ -229,120 +171,54 @@
             margin-top: 10px;
             font-size: 0.9rem;
             color: var(--gray-text);
-            display: flex;
-            justify-content: space-between;
         }
         
         .pagination {
             display: flex;
             justify-content: center;
             margin-top: 30px;
-            gap: 5px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         
-        .pagination-button {
+        .pagination-btn {
             padding: 8px 15px;
             background-color: var(--card-bg);
-            border: none;
-            border-radius: 4px;
             color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            min-width: 40px;
+            transition: all 0.3s;
         }
         
-        .pagination-button:hover {
+        .pagination-btn.active {
+            background-color: var(--secondary-color);
+            color: black;
+        }
+        
+        .pagination-btn:hover:not(.active) {
             background-color: var(--primary-color);
         }
         
-        .pagination-button.active {
-            background-color: var(--xbox-green);
-            color: white;
-            font-weight: bold;
-        }
-        
-        .pagination-button.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .loading {
+        .games-count {
             text-align: center;
-            padding: 40px;
+            margin-top: 15px;
             color: var(--gray-text);
-            grid-column: 1 / -1;
-        }
-        
-        .loading-spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid var(--xbox-green);
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--xbox-green);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            z-index: 99;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .scroll-to-top.visible {
-            opacity: 1;
-        }
-        
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: var(--gray-text);
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--gray-text);
-            border-top: 1px solid var(--card-bg);
+            font-size: 0.9rem;
         }
         
         @media (max-width: 768px) {
             .compatibility-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
             
             #searchInput {
                 width: 80%;
             }
             
-            .search-icon {
-                right: 11%;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 10px;
+            .platform-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -350,332 +226,93 @@
 <body>
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-gamepad logo-icon"></i>
-                    <span class="logo-text">Xanite</span>
-                </div>
-                <div class="header-info">
-                    Xbox Original Games Compatibility List
-                </div>
-            </div>
+            <nav>
+                <a href="index.html" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">
+                    <i class="fas fa-gamepad" style="color: var(--secondary-color);"></i> Xanite
+                </a>
+            </nav>
         </div>
     </header>
 
     <div class="container">
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search Xbox Original games...">
-            <i class="fas fa-search search-icon"></i>
-        </div>
-
-        <div class="controls">
-            <div class="filter-container">
-                <input type="checkbox" id="filter-unknown" class="filter-checkbox" checked>
-                <label for="filter-unknown" class="filter-label filter-unknown">Unknown</label>
-                
-                <input type="checkbox" id="filter-broken" class="filter-checkbox" checked>
-                <label for="filter-broken" class="filter-label filter-broken">Broken</label>
-                
-                <input type="checkbox" id="filter-intro" class="filter-checkbox" checked>
-                <label for="filter-intro" class="filter-label filter-intro">Intro</label>
-                
-                <input type="checkbox" id="filter-starts" class="filter-checkbox" checked>
-                <label for="filter-starts" class="filter-label filter-starts">Starts</label>
-                
-                <input type="checkbox" id="filter-playable" class="filter-checkbox" checked>
-                <label for="filter-playable" class="filter-label filter-playable">Playable</label>
-                
-                <input type="checkbox" id="filter-perfect" class="filter-checkbox" checked>
-                <label for="filter-perfect" class="filter-label filter-perfect">Perfect</label>
-            </div>
-            
-            <div class="sort-container">
-                <select id="sortSelect">
-                    <option value="title">Sort by Title</option>
-                    <option value="year">Sort by Year (Newest)</option>
-                    <option value="year-oldest">Sort by Year (Oldest)</option>
-                    <option value="status">Sort by Status</option>
-                </select>
-            </div>
+            <input type="text" id="searchInput" placeholder="Search Xbox games...">
         </div>
         
-        <div class="stats" id="statsContainer">
-            Loading games...
+        <div class="platform-selector">
+            <button class="platform-btn active" data-platform="original">Xbox Original (1800 Games)</button>
+            <button class="platform-btn" data-platform="360">Xbox 360 (100 Games)</button>
         </div>
+
+        <div class="filter-container">
+            <input type="checkbox" id="filter-unknown" class="filter-checkbox" checked>
+            <label for="filter-unknown" class="filter-label filter-unknown">Unknown</label>
+            
+            <input type="checkbox" id="filter-broken" class="filter-checkbox" checked>
+            <label for="filter-broken" class="filter-label filter-broken">Broken</label>
+            
+            <input type="checkbox" id="filter-intro" class="filter-checkbox" checked>
+            <label for="filter-intro" class="filter-label filter-intro">Intro</label>
+            
+            <input type="checkbox" id="filter-starts" class="filter-checkbox" checked>
+            <label for="filter-starts" class="filter-label filter-starts">Starts</label>
+            
+            <input type="checkbox" id="filter-playable" class="filter-checkbox" checked>
+            <label for="filter-playable" class="filter-label filter-playable">Playable</label>
+            
+            <input type="checkbox" id="filter-perfect" class="filter-checkbox" checked>
+            <label for="filter-perfect" class="filter-label filter-perfect">Perfect</label>
+        </div>
+
+        <div class="games-count" id="gamesCount">Showing 0 of 0 games</div>
 
         <div class="compatibility-grid" id="gamesContainer">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                Loading Xbox games...
-            </div>
+            <!-- Xbox games will appear here -->
         </div>
-        
-        <div class="pagination" id="paginationContainer">
-            <!-- Pagination buttons will be generated here -->
+
+        <div class="pagination" id="pagination">
+            <!-- Pagination buttons will appear here -->
         </div>
-    </div>
-    
-    <footer>
-        <div class="container">
-            <p>Xbox Original Games Compatibility List - Xanite &copy; 2023</p>
-            <p>This is a fan-made website. All game images and titles are property of their respective owners.</p>
-        </div>
-    </footer>
-    
-    <div class="scroll-to-top" id="scrollToTop">
-        <i class="fas fa-arrow-up"></i>
     </div>
 
     <script>
-        // Xbox Original Games Database with real game data and proper Xbox images
-        const gamesDatabase = [
-            { 
-                title: "Halo: Combat Evolved", 
-                status: "playable", 
-                year: 2001, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lt0.jpg"
-            },
-            { 
-                title: "Halo 2", 
-                status: "playable", 
-                year: 2004, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lsz.jpg"
-            },
-            { 
-                title: "Doom 3", 
-                status: "starts", 
-                year: 2005, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8l.jpg"
-            },
-            { 
-                title: "Fable", 
-                status: "playable", 
-                year: 2004, 
-                genre: "RPG",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw0.jpg"
-            },
-            { 
-                title: "Ninja Gaiden", 
-                status: "perfect", 
-                year: 2004, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1tdg.jpg"
-            },
-            { 
-                title: "Forza Motorsport", 
-                status: "playable", 
-                year: 2005, 
-                genre: "Racing",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8m.jpg"
-            },
-            { 
-                title: "Star Wars: Knights of the Old Republic", 
-                status: "perfect", 
-                year: 2003, 
-                genre: "RPG",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw1.jpg"
-            },
-            { 
-                title: "Project Gotham Racing 2", 
-                status: "playable", 
-                year: 2003, 
-                genre: "Racing",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8n.jpg"
-            },
-            { 
-                title: "Crimson Skies: High Road to Revenge", 
-                status: "playable", 
-                year: 2003, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8o.jpg"
-            },
-            { 
-                title: "MechAssault", 
-                status: "starts", 
-                year: 2002, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8p.jpg"
-            },
-            { 
-                title: "Tom Clancy's Splinter Cell", 
-                status: "playable", 
-                year: 2002, 
-                genre: "Stealth",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw2.jpg"
-            },
-            { 
-                title: "Grand Theft Auto: San Andreas", 
-                status: "intro", 
-                year: 2005, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw3.jpg"
-            },
-            { 
-                title: "Burnout 3: Takedown", 
-                status: "playable", 
-                year: 2004, 
-                genre: "Racing",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8q.jpg"
-            },
-            { 
-                title: "Jade Empire", 
-                status: "starts", 
-                year: 2005, 
-                genre: "RPG",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8r.jpg"
-            },
-            { 
-                title: "Prince of Persia: The Sands of Time", 
-                status: "playable", 
-                year: 2003, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw4.jpg"
-            },
-            { 
-                title: "The Elder Scrolls III: Morrowind", 
-                status: "broken", 
-                year: 2002, 
-                genre: "RPG",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw5.jpg"
-            },
-            { 
-                title: "Dead or Alive 3", 
-                status: "perfect", 
-                year: 2001, 
-                genre: "Fighting",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8s.jpg"
-            },
-            { 
-                title: "Counter-Strike", 
-                status: "playable", 
-                year: 2003, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8t.jpg"
-            },
-            { 
-                title: "Panzer Dragoon Orta", 
-                status: "perfect", 
-                year: 2002, 
-                genre: "Shooter",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8u.jpg"
-            },
-            { 
-                title: "SSX 3", 
-                status: "playable", 
-                year: 2003, 
-                genre: "Sports",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8v.jpg"
-            },
-            { 
-                title: "Psychonauts", 
-                status: "unknown", 
-                year: 2005, 
-                genre: "Adventure",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw6.jpg"
-            },
-            { 
-                title: "Beyond Good & Evil", 
-                status: "intro", 
-                year: 2003, 
-                genre: "Adventure",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw7.jpg"
-            },
-            { 
-                title: "The Chronicles of Riddick: Escape from Butcher Bay", 
-                status: "starts", 
-                year: 2004, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8w.jpg"
-            },
-            { 
-                title: "Tom Clancy's Rainbow Six 3", 
-                status: "playable", 
-                year: 2003, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8x.jpg"
-            },
-            { 
-                title: "Far Cry Instincts", 
-                status: "broken", 
-                year: 2005, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8y.jpg"
-            },
-            { 
-                title: "Tony Hawk's Pro Skater 3", 
-                status: "perfect", 
-                year: 2001, 
-                genre: "Sports",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r8z.jpg"
-            },
-            { 
-                title: "The Sims 2", 
-                status: "unknown", 
-                year: 2005, 
-                genre: "Simulation",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r90.jpg"
-            },
-            { 
-                title: "Need for Speed: Underground 2", 
-                status: "playable", 
-                year: 2004, 
-                genre: "Racing",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r91.jpg"
-            },
-            { 
-                title: "Sid Meier's Pirates!", 
-                status: "starts", 
-                year: 2005, 
-                genre: "Adventure",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r92.jpg"
-            },
-            { 
-                title: "Half-Life 2", 
-                status: "broken", 
-                year: 2005, 
-                genre: "FPS",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2lw8.jpg"
-            },
-            { 
-                title: "Fuzion Frenzy", 
-                status: "playable", 
-                year: 2001, 
-                genre: "Party",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r93.jpg"
-            },
-            { 
-                title: "Brute Force", 
-                status: "starts", 
-                year: 2003, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r94.jpg"
-            },
-            { 
-                title: "Jet Set Radio Future", 
-                status: "playable", 
-                year: 2002, 
-                genre: "Action",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r95.jpg"
-            },
-            { 
-                title: "Guilty Gear X2 #Reload", 
-                status: "perfect", 
-                year: 2004, 
-                genre: "Fighting",
-                image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1r96.jpg"
-            }
-        ];
-
-        // App state
+        // Xbox Games Database
+        const xboxOriginalGames = generateGames(1800, "Xbox Original");
+        const xbox360Games = generateGames(100, "Xbox 360");
+        
+        // Current state
+        let currentPlatform = "original";
         let currentPage = 1;
-        const gamesPerPage = 24;
-        let currentSort = 'title';
-        let filteredGames = [];
-
-        // Function to display games based on filters
+        const gamesPerPage = 80;
+        
+        // Function to generate fake game data
+        function generateGames(count, platform) {
+            const statuses = ["unknown", "broken", "intro", "starts", "playable", "perfect"];
+            const genres = ["FPS", "RPG", "Action", "Adventure", "Racing", "Sports", "Strategy", "Puzzle"];
+            const years = platform === "Xbox Original" ? 
+                [2001, 2002, 2003, 2004, 2005] : 
+                [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013];
+            
+            const games = [];
+            
+            for (let i = 1; i <= count; i++) {
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                const genre = genres[Math.floor(Math.random() * genres.length)];
+                const year = years[Math.floor(Math.random() * years.length)];
+                
+                games.push({
+                    title: `${platform} Game ${i}`,
+                    status: status,
+                    year: year,
+                    genre: genre,
+                    platform: platform
+                });
+            }
+            
+            return games;
+        }
+        
+        // Function to display games based on filters and pagination
         function displayGames() {
             const container = document.getElementById('gamesContainer');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -688,8 +325,11 @@
             const showPlayable = document.getElementById('filter-playable').checked;
             const showPerfect = document.getElementById('filter-perfect').checked;
             
+            // Get current platform games
+            const currentGames = currentPlatform === "original" ? xboxOriginalGames : xbox360Games;
+            
             // Filter games
-            filteredGames = gamesDatabase.filter(game => {
+            const filteredGames = currentGames.filter(game => {
                 // Filter by search term
                 const matchesSearch = game.title.toLowerCase().includes(searchTerm) || 
                                      game.genre.toLowerCase().includes(searchTerm) || 
@@ -707,81 +347,75 @@
                 return matchesSearch && matchesStatus;
             });
             
-            // Sort games
-            sortGames(filteredGames, currentSort);
+            // Update games count
+            document.getElementById('gamesCount').textContent = `Showing ${filteredGames.length} of ${currentGames.length} games`;
             
-            // Update stats
-            updateStats(filteredGames.length);
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
             
-            // Update pagination
-            updatePagination(filteredGames.length);
+            // Adjust current page if needed
+            if (currentPage > totalPages && totalPages > 0) {
+                currentPage = totalPages;
+            } else if (totalPages === 0) {
+                currentPage = 1;
+            }
             
-            // Display current page
-            displayCurrentPage();
-        }
-        
-        // Function to sort games
-        function sortGames(games, sortBy) {
-            switch(sortBy) {
-                case 'title':
-                    games.sort((a, b) => a.title.localeCompare(b.title));
-                    break;
-                case 'year':
-                    games.sort((a, b) => b.year - a.year);
-                    break;
-                case 'year-oldest':
-                    games.sort((a, b) => a.year - b.year);
-                    break;
-                case 'status':
-                    const statusOrder = {unknown: 0, broken: 1, intro: 2, starts: 3, playable: 4, perfect: 5};
-                    games.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
-                    break;
+            // Generate pagination buttons
+            generatePaginationButtons(totalPages);
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            if (filteredGames.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No Xbox games found matching your criteria</p>';
+                return;
+            }
+            
+            // Calculate start and end index for current page
+            const startIndex = (currentPage - 1) * gamesPerPage;
+            const endIndex = Math.min(startIndex + gamesPerPage, filteredGames.length);
+            
+            // Display games for current page
+            for (let i = startIndex; i < endIndex; i++) {
+                const game = filteredGames[i];
+                const statusClass = `status-${game.status}`;
+                const statusText = game.status.charAt(0).toUpperCase() + game.status.slice(1);
+                
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.style.borderLeftColor = `var(--${game.status})`;
+                gameCard.innerHTML = `
+                    <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <span class="game-status ${statusClass}">${statusText}</span>
+                        <div class="game-details">${game.year} | ${game.genre}</div>
+                    </div>
+                `;
+                
+                container.appendChild(gameCard);
             }
         }
         
-        // Function to update stats
-        function updateStats(total) {
-            const statsContainer = document.getElementById('statsContainer');
-            const startIndex = (currentPage - 1) * gamesPerPage + 1;
-            const endIndex = Math.min(startIndex + gamesPerPage - 1, total);
-            
-            if (total === 0) {
-                statsContainer.textContent = 'No games found';
-            } else {
-                statsContainer.textContent = `Showing ${startIndex}-${endIndex} of ${total} games`;
-            }
-        }
-        
-        // Function to update pagination
-        function updatePagination(total) {
-            const paginationContainer = document.getElementById('paginationContainer');
-            const totalPages = Math.ceil(total / gamesPerPage);
-            
-            // Clear previous pagination
+        // Function to generate pagination buttons
+        function generatePaginationButtons(totalPages) {
+            const paginationContainer = document.getElementById('pagination');
             paginationContainer.innerHTML = '';
             
             if (totalPages <= 1) return;
             
-            // Add previous button
-            const prevButton = document.createElement('button');
-            prevButton.className = 'pagination-button';
-            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
-            prevButton.addEventListener('click', () => {
-                if (currentPage > 1) {
+            // Previous button
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'pagination-btn';
+                prevBtn.innerHTML = '&laquo;';
+                prevBtn.addEventListener('click', () => {
                     currentPage--;
-                    displayCurrentPage();
-                    updatePaginationButtons();
-                    window.scrollTo(0, 0);
-                }
-            });
-            
-            if (currentPage === 1) {
-                prevButton.classList.add('disabled');
+                    displayGames();
+                });
+                paginationContainer.appendChild(prevBtn);
             }
             
-            paginationContainer.appendChild(prevButton);
-            
-            // Add page buttons
+            // Page buttons
             const maxVisiblePages = 5;
             let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
             let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -791,123 +425,29 @@
             }
             
             for (let i = startPage; i <= endPage; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.className = 'pagination-button';
-                if (i === currentPage) pageButton.classList.add('active');
-                pageButton.textContent = i;
-                pageButton.addEventListener('click', () => {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
                     currentPage = i;
-                    displayCurrentPage();
-                    updatePaginationButtons();
-                    window.scrollTo(0, 0);
+                    displayGames();
                 });
-                paginationContainer.appendChild(pageButton);
+                paginationContainer.appendChild(pageBtn);
             }
             
-            // Add next button
-            const nextButton = document.createElement('button');
-            nextButton.className = 'pagination-button';
-            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
-            nextButton.addEventListener('click', () => {
-                if (currentPage < totalPages) {
+            // Next button
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'pagination-btn';
+                nextBtn.innerHTML = '&raquo;';
+                nextBtn.addEventListener('click', () => {
                     currentPage++;
-                    displayCurrentPage();
-                    updatePaginationButtons();
-                    window.scrollTo(0, 0);
-                }
-            });
-            
-            if (currentPage === totalPages) {
-                nextButton.classList.add('disabled');
-            }
-            
-            paginationContainer.appendChild(nextButton);
-        }
-        
-        // Function to update pagination button states
-        function updatePaginationButtons() {
-            const buttons = document.querySelectorAll('.pagination-button');
-            buttons.forEach(button => {
-                button.classList.remove('active', 'disabled');
-                
-                if (button.textContent == currentPage) {
-                    button.classList.add('active');
-                }
-            });
-            
-            // Disable prev/next buttons if needed
-            const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
-            const prevButton = buttons[0];
-            const nextButton = buttons[buttons.length - 1];
-            
-            if (currentPage === 1) {
-                prevButton.classList.add('disabled');
-            }
-            
-            if (currentPage === totalPages) {
-                nextButton.classList.add('disabled');
-            }
-        }
-        
-        // Function to display current page
-        function displayCurrentPage() {
-            const container = document.getElementById('gamesContainer');
-            
-            if (filteredGames.length === 0) {
-                container.innerHTML = '<div class="no-results">No Xbox games found matching your criteria</div>';
-                return;
-            }
-            
-            const startIndex = (currentPage - 1) * gamesPerPage;
-            const endIndex = Math.min(startIndex + gamesPerPage, filteredGames.length);
-            
-            container.innerHTML = '';
-            
-            for (let i = startIndex; i < endIndex; i++) {
-                const game = filteredGames[i];
-                const statusClass = `status-${game.status}`;
-                const statusText = game.status.charAt(0).toUpperCase() + game.status.slice(1);
-                
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
-                gameCard.innerHTML = `
-                    <img src="${game.image}" alt="${game.title}" class="game-image" style="border-bottom-color: var(--${game.status})">
-                    <div class="game-info">
-                        <div class="game-title">${game.title}</div>
-                        <span class="game-status ${statusClass}">${statusText}</span>
-                        <div class="game-details">
-                            <span>${game.year}</span>
-                            <span>${game.genre}</span>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(gameCard);
-            }
-            
-            updateStats(filteredGames.length);
-        }
-        
-        // Function to handle scroll to top button
-        function initScrollToTop() {
-            const scrollButton = document.getElementById('scrollToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollButton.classList.add('visible');
-                } else {
-                    scrollButton.classList.remove('visible');
-                }
-            });
-            
-            scrollButton.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+                    displayGames();
                 });
-            });
+                paginationContainer.appendChild(nextBtn);
+            }
         }
-
+        
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', () => {
             currentPage = 1;
@@ -921,20 +461,19 @@
             });
         });
         
-        document.getElementById('sortSelect').addEventListener('change', (e) => {
-            currentSort = e.target.value;
-            currentPage = 1;
-            displayGames();
+        // Platform selector event listeners
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentPlatform = btn.dataset.platform;
+                currentPage = 1;
+                displayGames();
+            });
         });
 
         // Initial display
-        window.onload = function() {
-            // Simulate loading delay
-            setTimeout(() => {
-                displayGames();
-                initScrollToTop();
-            }, 1000);
-        };
+        window.onload = displayGames;
     </script>
 </body>
 </html>
