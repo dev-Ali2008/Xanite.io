@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #666666;
-            --secondary-color: #9bf00b;
-            --dark-bg: #1e1e1e;
-            --darker-bg: #121212;
+            --primary-color: #00ff88;
+            --secondary-color: #00aaff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
             --light-text: #ffffff;
-            --gray-text: #aaaaaa;
-            --card-bg: #2a2a2a;
-            --faq-bg: #252525;
+            --gray-text: #cccccc;
+            --card-bg: rgba(20, 20, 30, 0.95);
+            --faq-bg: rgba(30, 30, 40, 0.9);
+            --border-color: rgba(0, 255, 136, 0.2);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
         
         * {
@@ -28,6 +30,10 @@
             background-color: var(--darker-bg);
             color: var(--light-text);
             line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 80%, rgba(0, 170, 255, 0.05) 0%, transparent 20%);
         }
         
         .container {
@@ -38,371 +44,1262 @@
         
         /* Header Styles */
         header {
-            background-color: rgba(30, 30, 30, 0.9);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background-color: rgba(10, 10, 10, 0.98);
+            padding: 15px 0;
             position: sticky;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(5px);
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--darker-bg);
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
         }
         
         .logo-text {
             font-size: 1.8rem;
-            font-weight: bold;
-            color: white;
-            margin-left: 10px;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            display: flex;
+            gap: 25px;
             align-items: center;
         }
         
-        .nav-links a i {
-            margin-right: 8px;
+        .nav-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .nav-links a:hover {
-            color: var(--secondary-color);
+            color: var(--primary-color);
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateY(-2px);
         }
         
-        /* FAQ Section */
-        .faq-section {
-            padding: 80px 0;
-            background-color: var(--dark-bg);
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(0, 255, 136, 0.1);
         }
         
-        .faq-header {
+        /* FAQ Hero Section */
+        .faq-hero {
+            padding: 100px 0 60px;
             text-align: center;
-            margin-bottom: 50px;
+            position: relative;
         }
         
-        .faq-header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+        .faq-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .faq-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 900;
         }
         
-        .faq-header p {
+        .faq-hero p {
+            font-size: 1.2rem;
             color: var(--gray-text);
-            font-size: 1.1rem;
             max-width: 700px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+        }
+        
+        /* FAQ Categories */
+        .faq-categories {
+            padding: 40px 0 30px;
+        }
+        
+        .categories-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 12px 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--gray-text);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--gradient);
+            color: var(--darker-bg);
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+        }
+        
+        /* FAQ Container */
+        .faq-section {
+            padding: 60px 0 80px;
         }
         
         .faq-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
+        .faq-category-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
         .faq-item {
-            background-color: var(--faq-bg);
-            border-radius: 8px;
+            background: var(--faq-bg);
+            border-radius: 15px;
             margin-bottom: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--secondary-color);
-            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
         }
         
         .faq-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 255, 136, 0.4);
+        }
+        
+        .faq-item.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.2);
         }
         
         .faq-question {
-            padding: 20px;
+            padding: 25px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .faq-question-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
         }
         
         .faq-question i {
-            color: var(--secondary-color);
-            margin-right: 15px;
-            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            min-width: 24px;
+        }
+        
+        .faq-question-text {
+            flex: 1;
+        }
+        
+        .faq-question .toggle-icon {
+            color: var(--primary-color);
+            font-size: 1.2rem;
             transition: transform 0.3s;
         }
         
+        .faq-item.active .faq-question .toggle-icon {
+            transform: rotate(45deg);
+        }
+        
         .faq-answer {
-            padding: 0 20px;
+            padding: 0 25px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            transition: max-height 0.5s ease, padding 0.3s ease;
             color: var(--gray-text);
-            border-top: 1px solid transparent;
+            line-height: 1.8;
         }
         
         .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding: 0 20px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 1000px;
+            padding: 0 25px 25px;
         }
         
-        .faq-item.active .faq-question i {
-            transform: rotate(90deg);
+        .faq-answer-content {
+            padding-top: 15px;
+        }
+        
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .faq-answer li {
+            margin-bottom: 8px;
+        }
+        
+        .faq-answer strong {
+            color: var(--primary-color);
         }
         
         .faq-answer a {
             color: var(--secondary-color);
             text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
         }
         
         .faq-answer a:hover {
+            color: var(--primary-color);
             text-decoration: underline;
         }
         
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 25px;
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .note {
+            background: rgba(0, 170, 255, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .warning {
+            background: rgba(255, 170, 68, 0.1);
+            border-left: 4px solid #ffaa44;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Search Bar */
+        .faq-search {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        #faqSearch {
+            width: 100%;
+            padding: 18px 25px 18px 50px;
             border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--light-text);
+            font-size: 1.1rem;
             transition: all 0.3s;
-            margin-top: 30px;
         }
         
-        .back-btn i {
-            margin-right: 8px;
+        #faqSearch:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
         }
         
-        .back-btn:hover {
-            background-color: #555555;
-            transform: translateY(-2px);
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-text);
+            font-size: 1.2rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--darker-bg);
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.4);
         }
         
         /* Footer */
         footer {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 40px 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
         
         .footer-links {
-            display: flex;
-            justify-content: center;
             list-style: none;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
         }
         
         .footer-links li {
-            margin: 0 15px;
+            margin-bottom: 12px;
         }
         
         .footer-links a {
             color: var(--gray-text);
             text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .footer-links a:hover {
-            color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateX(5px);
         }
         
         .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--gray-text);
             font-size: 0.9rem;
-            margin-top: 20px;
         }
         
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .faq-header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .faq-question {
-                font-size: 1.1rem;
-                padding: 15px;
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
             }
             
             .nav-links {
-                display: none;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .faq-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+            
+            .faq-answer {
+                padding: 0 20px;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 20px 20px;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faq-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .categories-container {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .faq-category-title {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- Header -->
     <header>
         <div class="container">
-            <nav>
-                <div class="logo-container">
-                    <span class="logo-text">Xanite</span>
-                </div>
+            <div class="header-content">
+                <a href="index.html" class="logo-container">
+                    <div class="logo-icon">X</div>
+                    <div class="logo-text">XANITE</div>
+                </a>
                 <ul class="nav-links">
                     <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
-                    <li><a href="index.html#compatibility"><i class="fas fa-check-circle"></i> Compatibility</a></li>
-                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="compatibility.html"><i class="fas fa-list-check"></i> Compatibility</a></li>
+                    <li><a href="faq.html" class="active"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
                 </ul>
-            </nav>
+            </div>
         </div>
     </header>
     
-    <section class="faq-section">
+    <!-- FAQ Hero Section -->
+    <section class="faq-hero">
         <div class="container">
-            <div class="faq-header">
-                <h1>Frequently Asked Questions</h1>
-                <p>Find answers to common questions about Xanite Emulator</p>
-            </div>
+            <h1>Frequently Asked Questions</h1>
+            <p>Find comprehensive answers to common questions about Xanite Emulator. Learn how to use it, troubleshoot issues, and get the most out of your gaming experience.</p>
             
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>What is Xanite?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Xanite is a fast and optimized emulator for <strong>Android</strong> that supports <strong>OG Xbox</strong> and <strong>Xbox 360</strong> games. It's built to bring classic Xbox titles to mobile devices with smooth performance and high compatibility.</p>
-                    </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Questions Answered</div>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>What platforms does Xanite support?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Xanite is only available for <strong>Android</strong>. Other platforms like iOS or PC are not supported.</p>
-                    </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Community Support</div>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Does Xanite use Xbox codes from other emulators?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No. Xanite is built from scratch for Android and doesn't reuse code from Xemu, Xenia, or others.<br>     
-                    </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free & Open Source</div>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Is Xanite free to use?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes! Xanite will offer two
-
-versions: a free version and a premium version called <strong>Xanite Gold!</strong>.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Is Xanite native or Termux-based?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Xanite is completely native and runs on Vulkan 1.1 and OpenGL 3.2, giving smooth and efficient graphics.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Does Xanite come with games?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No. Xanite does <strong>not</ strong> come with any games. You must provide your own legally-owned game files.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Is Xanite safe? I heard it has a virus.</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>That's <strong>false</strong>. Xanite is clean and safe to use.<br>
-                        - No viruses, malware, or spyware.<br>
-                        We encourage transparency — check out our code/builds via <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a>.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Where can I report bugs or get help?</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>You can join our <a href="https://discord.gg/U5kytJ4dub" target="_blank">Discord</a> or post issues/ideas on <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a> to get support or suggest features.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="index.html" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </a>
             </div>
         </div>
     </section>
     
-     <footer class="fade-in">
-        <div class="c ontainer">
-        <ul class="footer-links">
-    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li> 
-    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-        </ul>
-            <p class="copyright">© 2024 Xanite Emulator Project. All rights reserved.</p>
+    <!-- FAQ Search -->
+    <section class="faq-search">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" id="faqSearch" placeholder="Search for questions or topics...">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
         </div>
-     </footer>
+    </section>
+    
+    <!-- FAQ Categories -->
+    <section class="faq-categories">
+        <div class="container">
+            <div class="categories-container">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-layer-group"></i> All Questions
+                </button>
+                <button class="category-btn" data-category="general">
+                    <i class="fas fa-info-circle"></i> General
+                </button>
+                <button class="category-btn" data-category="installation">
+                    <i class="fas fa-download"></i> Installation
+                </button>
+                <button class="category-btn" data-category="compatibility">
+                    <i class="fas fa-gamepad"></i> Compatibility
+                </button>
+                <button class="category-btn" data-category="performance">
+                    <i class="fas fa-tachometer-alt"></i> Performance
+                </button>
+                <button class="category-btn" data-category="troubleshooting">
+                    <i class="fas fa-tools"></i> Troubleshooting
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-container" id="faqContainer">
+                
+                <!-- General Questions -->
+                <h2 class="faq-category-title" data-category="general">
+                    <i class="fas fa-info-circle"></i> General Questions
+                </h2>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">What is Xanite Emulator?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Xanite</strong> is a powerful and optimized emulator for Android devices that allows you to play original Xbox and Xbox 360 games on your mobile device. It's built from the ground up specifically for Android, offering high performance and compatibility.</p>
+                            
+                            <div class="note">
+                                <p><strong>Key Features:</strong></p>
+                                <ul>
+                                    <li>Native Android implementation (not Termux-based)</li>
+                                    <li>Vulkan 1.1 and OpenGL 3.2 support</li>
+                                    <li>High compatibility with Xbox and Xbox 360 games</li>
+                                    <li>Optimized for modern Android devices</li>
+                                    <li>Controller and touchscreen support</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Is Xanite free to use?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Yes!</strong> Xanite will offer two versions:</p>
+                            
+                            <div class="tip">
+                                <p><strong>Xanite Free:</strong> Complete emulator with all core features for playing Xbox and Xbox 360 games.</p>
+                            </div>
+                            
+                            <div class="note">
+                                <p><strong>Xanite Gold (Premium):</strong> Enhanced version with additional features like:</p>
+                                <ul>
+                                    <li>Priority updates and early access to new features</li>
+                                    <li>Advanced graphics settings and enhancements</li>
+                                    <li>Cloud save synchronization</li>
+                                    <li>Premium support and priority bug fixes</li>
+                                </ul>
+                            </div>
+                            
+                            <p>Both versions will be available through our official channels.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Does Xanite reuse code from other emulators?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>No!</strong> Xanite is built entirely from scratch specifically for Android. We do not reuse or copy code from other emulators like Xemu, Xenia, or any other projects.</p>
+                            
+                            <div class="tip">
+                                <p><strong>Why this matters:</strong> Building from scratch allows us to:</p>
+                                <ul>
+                                    <li>Optimize specifically for Android architecture</li>
+                                    <li>Implement modern graphics APIs efficiently</li>
+                                    <li>Create a clean, maintainable codebase</li>
+                                    <li>Add features unique to mobile gaming</li>
+                                </ul>
+                            </div>
+                            
+                            <p>Our code is open source and available on <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a> for transparency.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Installation Questions -->
+                <h2 class="faq-category-title" data-category="installation">
+                    <i class="fas fa-download"></i> Installation & Setup
+                </h2>
+                
+                <div class="faq-item" data-category="installation">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">How do I install Xanite on Android?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Installation Guide:</strong></p>
+                            
+                            <div class="note">
+                                <p><strong>Minimum Requirements:</strong></p>
+                                <ul>
+                                    <li>Android 8.0 or higher</li>
+                                    <li>ARMv8 architecture (64-bit)</li>
+                                    <li>At least 4GB of RAM (6GB recommended)</li>
+                                    <li>Vulkan 1.1 or OpenGL 3.2 support</li>
+                                    <li>At least 500MB free storage</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Installation Steps:</strong></p>
+                            <ol>
+                                <li>Download the latest APK from our <a href="index.html#download">download page</a> or <a href="https://github.com/dev-Ali2008/xanite/releases" target="_blank">GitHub releases</a></li>
+                                <li>Enable "Install from Unknown Sources" in your Android settings</li>
+                                <li>Locate the downloaded APK file and tap to install</li>
+                                <li>Follow the on-screen installation instructions</li>
+                                <li>Launch Xanite from your app drawer</li>
+                            </ol>
+                            
+                            <div class="warning">
+                                <p><strong>⚠️ Security Note:</strong> Only download Xanite from our official sources. Avoid third-party websites that may distribute modified or malicious versions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="installation">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Do I need BIOS files or game files?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Yes, you need game files.</strong> Xanite does NOT come with any games or BIOS files. You must provide your own legally-owned game files.</p>
+                            
+                            <div class="note">
+                                <p><strong>What you need:</strong></p>
+                                <ul>
+                                    <li><strong>Game ISO files</strong> - Disc images of Xbox/Xbox 360 games</li>
+                                    <li><strong>Game ROMs</strong> - Digital copies of games</li>
+                                    <li><strong>BIOS (for Xbox)</strong> - Required for Xbox emulation</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning">
+                                <p><strong>⚠️ Legal Notice:</strong> You must own the original games to legally use their files with Xanite. We do not support or encourage piracy.</p>
+                            </div>
+                            
+                            <p><strong>How to add games:</strong></p>
+                            <ol>
+                                <li>Place your game files in a folder on your device</li>
+                                <li>Open Xanite and go to Settings → Game Directories</li>
+                                <li>Add the folder containing your game files</li>
+                                <li>Xanite will automatically scan and add games to your library</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Compatibility Questions -->
+                <h2 class="faq-category-title" data-category="compatibility">
+                    <i class="fas fa-gamepad"></i> Game Compatibility
+                </h2>
+                
+                <div class="faq-item" data-category="compatibility">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Which games work with Xanite?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Xanite aims to support a wide range of Xbox and Xbox 360 games. Compatibility varies based on game requirements and device capabilities.</p>
+                            
+                            <div class="note">
+                                <p><strong>Current Compatibility Status:</strong></p>
+                                <ul>
+                                    <li><strong>Xbox Original:</strong> ~150 games supported with varying compatibility</li>
+                                    <li><strong>Xbox 360:</strong> ~2500 games in database, testing in progress</li>
+                                    <li><strong>Best Working:</strong> 2D games, older titles, arcade games</li>
+                                    <li><strong>Work in Progress:</strong> 3D games, AAA titles, newer releases</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Check Compatibility:</strong> Visit our <a href="compatibility.html">compatibility page</a> for the complete list of tested games and their status.</p>
+                            
+                            <div class="tip">
+                                <p><strong>Tip:</strong> Games marked as "Playable" or "Perfect" in the compatibility list will work best. Games marked as "Nothing" have not been tested yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="compatibility">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">How is compatibility determined?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We use a standardized compatibility rating system similar to other emulators:</p>
+                            
+                            <div class="code-block">
+                                <strong>Compatibility Ratings:</strong><br>
+                                🟢 <strong>Perfect</strong> - Game runs flawlessly with no issues<br>
+                                🟡 <strong>Playable</strong> - Minor issues, fully playable<br>
+                                🔵 <strong>In-Game</strong> - Major issues, but reaches gameplay<br>
+                                🟠 <strong>Intro</strong> - Only intro/menu works<br>
+                                🔴 <strong>Broken</strong> - Crashes or freezes<br>
+                                ⚫ <strong>Nothing</strong> - Won't start or untested
+                            </div>
+                            
+                            <p><strong>Testing Methodology:</strong></p>
+                            <ol>
+                                <li>Initial boot test (does it start?)</li>
+                                <li>Menu navigation test</li>
+                                <li>Gameplay test (30+ minutes)</li>
+                                <li>Performance metrics (FPS, stability)</li>
+                                <li>Bug reporting and documentation</li>
+                            </ol>
+                            
+                            <div class="tip">
+                                <p><strong>Community Testing:</strong> You can help! Test games on your device and report results on our <a href="https://discord.gg/U5kytJ4dub" target="_blank">Discord</a> or <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Performance Questions -->
+                <h2 class="faq-category-title" data-category="performance">
+                    <i class="fas fa-tachometer-alt"></i> Performance & Optimization
+                </h2>
+                
+                <div class="faq-item" data-category="performance">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">What are the minimum requirements?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Minimum Requirements:</strong></p>
+                            <ul>
+                                <li><strong>Android Version:</strong> 8.0 (Oreo) or higher</li>
+                                <li><strong>CPU:</strong> ARMv8 (64-bit) processor</li>
+                                <li><strong>RAM:</strong> 4GB minimum, 6GB recommended</li>
+                                <li><strong>GPU:</strong> Vulkan 1.1 or OpenGL ES 3.2 support</li>
+                                <li><strong>Storage:</strong> 500MB free space for emulator</li>
+                                <li><strong>Additional:</strong> 2-4GB per game for game files</li>
+                            </ul>
+                            
+                            <div class="note">
+                                <p><strong>Recommended Specifications:</strong></p>
+                                <ul>
+                                    <li><strong>Android Version:</strong> 11 or higher</li>
+                                    <li><strong>CPU:</strong> Snapdragon 845/855 or equivalent</li>
+                                    <li><strong>RAM:</strong> 8GB or more</li>
+                                    <li><strong>GPU:</strong> Adreno 640/Mali-G76 or better</li>
+                                    <li><strong>Storage:</strong> UFS 3.0/3.1 for faster loading</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Performance Tips:</strong> Close background apps, enable performance mode, and use a cooler for extended gaming sessions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="performance">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">How can I improve performance?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Performance Optimization Guide:</strong></p>
+                            
+                            <div class="tip">
+                                <p><strong>Quick Performance Boost:</strong></p>
+                                <ol>
+                                    <li>Close all background applications</li>
+                                    <li>Enable "Performance Mode" in your device settings</li>
+                                    <li>Disable battery optimization for Xanite</li>
+                                    <li>Use a cooling fan or play in a cool environment</li>
+                                </ol>
+                            </div>
+                            
+                            <p><strong>Xanite Settings Optimization:</strong></p>
+                            <ul>
+                                <li><strong>Graphics Settings:</strong>
+                                    <ul>
+                                        <li>Resolution: Set to 1x or 720p for best performance</li>
+                                        <li>Anti-aliasing: Disable for performance boost</li>
+                                        <li>Texture filtering: Use "Bilinear" instead of "Trilinear"</li>
+                                        <li>Shader compilation: Enable async compilation</li>
+                                    </ul>
+                                </li>
+                                <li><strong>CPU Settings:</strong>
+                                    <ul>
+                                        <li>CPU mode: Use "Performance" or "Balanced"</li>
+                                        <li>Recompiler: Enable for better performance</li>
+                                        <li>Multithreading: Enable if your device has 8+ cores</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Memory Settings:</strong>
+                                    <ul>
+                                        <li>Memory allocation: Set to "Balanced"</li>
+                                        <li>Cache size: Increase if you have 8GB+ RAM</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="warning">
+                                <p><strong>⚠️ Warning:</strong> Some settings may cause instability. Adjust one setting at a time and test thoroughly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Troubleshooting Questions -->
+                <h2 class="faq-category-title" data-category="troubleshooting">
+                    <i class="fas fa-tools"></i> Troubleshooting
+                </h2>
+                
+                <div class="faq-item" data-category="troubleshooting">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Game crashes or won't start - What to do?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Troubleshooting Steps:</strong></p>
+                            
+                            <div class="code-block">
+                                <strong>Quick Fix Checklist:</strong><br>
+                                1. Check game compatibility status<br>
+                                2. Verify game file integrity<br>
+                                3. Update Xanite to latest version<br>
+                                4. Clear Xanite cache and data<br>
+                                5. Try different graphics settings<br>
+                                6. Check device meets minimum requirements
+                            </div>
+                            
+                            <p><strong>Common Issues and Solutions:</strong></p>
+                            <ul>
+                                <li><strong>Game crashes on startup:</strong>
+                                    <ul>
+                                        <li>Check if game is compatible</li>
+                                        <li>Try different BIOS files (for Xbox games)</li>
+                                        <li>Verify game file isn't corrupted</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Black screen or freeze:</strong>
+                                    <ul>
+                                        <li>Wait 2-3 minutes (first-time shader compilation)</li>
+                                        <li>Disable "Async Shader Compilation"</li>
+                                        <li>Try OpenGL instead of Vulkan (or vice versa)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Poor performance/slowdowns:</strong>
+                                    <ul>
+                                        <li>Lower resolution scale</li>
+                                        <li>Disable anti-aliasing</li>
+                                        <li>Close background apps</li>
+                                        <li>Enable performance mode</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="tip">
+                                <p><strong>Getting Help:</strong> If problems persist, join our <a href="https://discord.gg/U5kytJ4dub" target="_blank">Discord</a> and provide:
+                                <ul>
+                                    <li>Device model and Android version</li>
+                                    <li>Xanite version</li>
+                                    <li>Game name and region</li>
+                                    <li>Error message or screenshot</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="troubleshooting">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Xanite won't install - What's wrong?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Common Installation Issues:</strong></p>
+                            
+                            <div class="note">
+                                <p><strong>Installation Error Solutions:</strong></p>
+                                <ul>
+                                    <li><strong>"App not installed":</strong>
+                                        <ul>
+                                            <li>Enable "Install from Unknown Sources"</li>
+                                            <li>Uninstall previous versions first</li>
+                                            <li>Clear Google Play Store cache</li>
+                                            <li>Check if APK file is corrupted (re-download)</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>"Parse error":</strong>
+                                        <ul>
+                                            <li>Download APK again (corrupted download)</li>
+                                            <li>Check Android version compatibility</li>
+                                            <li>Try downloading from different source</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>"Insufficient storage":</strong>
+                                        <ul>
+                                            <li>Clear device storage (at least 1GB free)</li>
+                                            <li>Move apps/files to SD card</li>
+                                            <li>Clear app caches</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>"Device not compatible":</strong>
+                                        <ul>
+                                            <li>Check minimum requirements</li>
+                                            <li>Verify ARMv8 (64-bit) CPU</li>
+                                            <li>Update Android version if possible</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>Step-by-Step Fix:</strong></p>
+                            <ol>
+                                <li>Go to Settings → Security → Unknown Sources (enable)</li>
+                                <li>Uninstall any existing Xanite versions</li>
+                                <li>Clear Play Store cache (Settings → Apps → Play Store → Clear Cache)</li>
+                                <li>Download fresh APK from official source</li>
+                                <li>Install and restart device if needed</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More FAQ Items... -->
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Is Xanite safe? I heard it has viruses.</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Absolutely Safe!</strong> Xanite is completely free from viruses, malware, or spyware. These claims are false and often spread by competitors or misinformation.</p>
+                            
+                            <div class="tip">
+                                <p><strong>Why Xanite is Safe:</strong></p>
+                                <ul>
+                                    <li><strong>Open Source:</strong> All code is publicly available on <a href="https://github.com/dev-Ali2008/xanite" target="_blank">GitHub</a> for review</li>
+                                    <li><strong>No Ads/Spyware:</strong> We don't include advertisements or tracking software</li>
+                                    <li><strong>Clean APKs:</strong> Official releases are digitally signed and verified</li>
+                                    <li><strong>Transparent Development:</strong> Regular updates with changelogs</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning">
+                                <p><strong>⚠️ Security Warning:</strong> Only download Xanite from our official sources:
+                                <ul>
+                                    <li>Official website: <a href="https://dev-Ali2008.github.io/xanite" target="_blank">https://dev-Ali2008.github.io/xanite</a></li>
+                                    <li>GitHub Releases: <a href="https://github.com/dev-Ali2008/xanite/releases" target="_blank">https://github.com/dev-Ali2008/xanite/releases</a></li>
+                                </ul>
+                                Avoid third-party websites that may distribute modified versions.
+                                </p>
+                            </div>
+                            
+                            <p><strong>Verification Tips:</strong></p>
+                            <ul>
+                                <li>Check file hash against our official releases</li>
+                                <li>Use antivirus apps from trusted sources</li>
+                                <li>Report suspicious versions to our team</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <div class="faq-question-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="faq-question-text">Where can I get help or report bugs?</div>
+                        </div>
+                        <i class="fas fa-plus toggle-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Support Channels:</strong></p>
+                            
+                            <div class="note">
+                                <p><strong>Official Support Platforms:</strong></p>
+                                <ul>
+                                    <li><strong>Discord:</strong> <a href="https://discord.gg/U5kytJ4dub" target="_blank">https://discord.gg/U5kytJ4dub</a> - Live chat with community and developers</li>
+                                    <li><strong>GitHub Issues:</strong> <a href="https://github.com/dev-Ali2008/xanite/issues" target="_blank">https://github.com/dev-Ali2008/xanite/issues</a> - Bug reports and feature requests</li>
+                                    <li><strong>Email:</strong> Contact via GitHub for security issues</li>
+                                </ul>
+                            </div>
+                            
+                            <p><strong>How to Report Bugs Effectively:</strong></p>
+                            <div class="code-block">
+                                <strong>Bug Report Template:</strong><br>
+                                <br>
+                                <strong>Device Information:</strong><br>
+                                - Model: [Your Device Model]<br>
+                                - Android Version: [e.g., Android 12]<br>
+                                - RAM: [e.g., 8GB]<br>
+                                <br>
+                                <strong>Xanite Version:</strong><br>
+                                - Version: [e.g., v1.0.0]<br>
+                                <br>
+                                <strong>Issue Description:</strong><br>
+                                - What happened?<br>
+                                - Steps to reproduce<br>
+                                - Expected behavior<br>
+                                - Actual behavior<br>
+                                <br>
+                                <strong>Screenshots/Logs:</strong><br>
+                                - Attach relevant screenshots<br>
+                                - Log files if available
+                            </div>
+                            
+                            <div class="tip">
+                                <p><strong>Before Reporting:</strong></p>
+                                <ul>
+                                    <li>Check if issue is already reported</li>
+                                    <li>Update to latest version</li>
+                                    <li>Try basic troubleshooting steps</li>
+                                    <li>Include as much detail as possible</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Xanite</h3>
+                    <p style="color: var(--gray-text); margin-top: 15px;">Experience Xbox gaming on Android with high-performance emulation and excellent compatibility.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
+                        <li><a href="compatibility.html"><i class="fas fa-list-check"></i> Compatibility</a></li>
+                        <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/dev-Ali2008/xanite" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="https://discord.gg/U5kytJ4dub" target="_blank"><i class="fab fa-discord"></i> Discord</a></li>
+                        <li><a href="https://youtube.com/@emulator_xanite" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+                        <li><a href="https://t.me/xanite_xbox" target="_blank"><i class="fab fa-telegram"></i> Telegram</a></li>
+                        <li><a href="https://www.patreon.com/Xanite_android" target="_blank"><i class="fab fa-patreon"></i> Patreon</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2024 Xanite Emulator Project. All rights reserved. Xbox and Xbox 360 are trademarks of Microsoft Corporation.</p>
+                <p style="margin-top: 10px; color: var(--primary-color);">
+                    <i class="fas fa-info-circle"></i> This is an independent project not affiliated with Microsoft.
+                </p>
+            </div>
+        </div>
+    </footer>
     
     <script>
-        // FAQ Accordion Functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // FAQ Accordion Functionality
             const faqItems = document.querySelectorAll('.faq-item');
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const faqSearch = document.getElementById('faqSearch');
+            const backToTopBtn = document.getElementById('backToTop');
             
+            // Initialize all FAQ items
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
                 
                 question.addEventListener('click', () => {
-                    // Close all other items
-                    faqItems.forEach(otherItem => {
+                    // Close all other items in the same category
+                    const category = item.dataset.category;
+                    const sameCategoryItems = document.querySelectorAll(`.faq-item[data-category="${category}"]`);
+                    
+                    sameCategoryItems.forEach(otherItem => {
                         if (otherItem !== item && otherItem.classList.contains('active')) {
                             otherItem.classList.remove('active');
                         }
@@ -410,7 +1307,141 @@ versions: a free version and a premium version called <strong>Xanite Gold!</stro
                     
                     // Toggle current item
                     item.classList.toggle('active');
+                    
+                    // Smooth scroll to active item
+                    if (item.classList.contains('active')) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
                 });
+            });
+            
+            // Category Filtering
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.dataset.category;
+                    
+                    // Show/hide FAQ items
+                    faqItems.forEach(item => {
+                        const itemCategory = item.dataset.category;
+                        
+                        if (category === 'all' || itemCategory === category) {
+                            item.style.display = 'block';
+                            
+                            // Show category title if it has items
+                            const categoryTitle = document.querySelector(`.faq-category-title[data-category="${itemCategory}"]`);
+                            if (categoryTitle) {
+                                const hasVisibleItems = Array.from(faqItems).some(i => 
+                                    i.dataset.category === itemCategory && 
+                                    i.style.display === 'block'
+                                );
+                                categoryTitle.style.display = hasVisibleItems ? 'flex' : 'none';
+                            }
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show all category titles when "all" is selected
+                    if (category === 'all') {
+                        document.querySelectorAll('.faq-category-title').forEach(title => {
+                            title.style.display = 'flex';
+                        });
+                    }
+                });
+            });
+            
+            // FAQ Search Functionality
+            faqSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                if (searchTerm.length === 0) {
+                    // Reset to current category view
+                    const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+                    categoryButtons.forEach(btn => {
+                        if (btn.dataset.category === activeCategory) {
+                            btn.click();
+                        }
+                    });
+                    return;
+                }
+                
+                // Hide all category titles initially
+                document.querySelectorAll('.faq-category-title').forEach(title => {
+                    title.style.display = 'none';
+                });
+                
+                // Search through FAQ items
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question-text').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        item.classList.add('active'); // Open matching items
+                        
+                        // Show its category title
+                        const category = item.dataset.category;
+                        const categoryTitle = document.querySelector(`.faq-category-title[data-category="${category}"]`);
+                        if (categoryTitle) {
+                            categoryTitle.style.display = 'flex';
+                        }
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // Update category buttons to show "all"
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.category-btn[data-category="all"]').classList.add('active');
+            });
+            
+            // Back to Top Button
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Auto-open FAQ items with hash in URL
+            const urlHash = window.location.hash;
+            if (urlHash) {
+                const targetItem = document.querySelector(urlHash);
+                if (targetItem && targetItem.classList.contains('faq-item')) {
+                    targetItem.classList.add('active');
+                    setTimeout(() => {
+                        targetItem.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+            }
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl/Cmd + F focuses search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                    e.preventDefault();
+                    faqSearch.focus();
+                    faqSearch.select();
+                }
+                
+                // Escape clears search
+                if (e.key === 'Escape' && document.activeElement === faqSearch) {
+                    faqSearch.value = '';
+                    faqSearch.dispatchEvent(new Event('input'));
+                }
             });
         });
     </script>
