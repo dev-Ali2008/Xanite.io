@@ -1,555 +1,584 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Xanite 360 Emulator </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xanite - Xbox Original Emulator for Android</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #00ff88;
-            --secondary-color: #00aaff;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --card-bg: rgba(20, 20, 30, 0.9);
-            --light-text: #ffffff;
-            --gray-text: #cccccc;
-            --accent-color: #9d00ff;
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            --gradient-dark: linear-gradient(135deg, #007744, #0055aa);
-            --border-radius: 16px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --accent: #ff00e6;
+            --dark: #0a0a0a;
+            --darker: #030303;
+            --card: rgba(15, 25, 20, 0.85);
+            --text: #ffffff;
+            --gray: #b0b0b0;
+            --glow: 0 0 20px rgba(0, 255, 136, 0.6);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-            overflow-x: hidden;
-        }
+        html { scroll-behavior: smooth; }
+        
+        [dir="rtl"] { font-family: 'Cairo', sans-serif; }
         
         body {
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--darker-bg);
-            color: var(--light-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 80% 80%, rgba(0, 170, 255, 0.05) 0%, transparent 20%),
-                linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.9)),
-                url('https://raw.githubusercontent.com/dev-Ali2008/Xanite.io/main/IMG_20250729_102617_388.jpg');
-            background-size: auto, auto, cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        /* تحسين الخطوط للجوال */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            font-family: 'Exo 2', sans-serif;
+            background: var(--darker);
+            color: var(--text);
             line-height: 1.7;
+            overflow-x: hidden;
         }
         
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* تحسين الهيدر للجوال */
-        header {
-            background-color: rgba(10, 10, 10, 0.98);
-            padding: 15px 0;
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            height: 100%;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 40%);
+            z-index: -1;
         }
         
-        header.scrolled {
-            padding: 12px 0;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 25px; }
         
-        nav {
+        /* Language Switcher */
+        .lang-switcher {
+            position: relative;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
+            gap: 10px;
+            background: var(--card);
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .logo-container {
+        .lang-switcher:hover { border-color: var(--primary); box-shadow: var(--glow); }
+        
+        .lang-text { color: var(--text); font-weight: 700; font-size: 0.95rem; }
+        
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--card);
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 10px;
+            min-width: 150px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .lang-switcher.active .lang-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .lang-option {
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-shrink: 0;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
         }
         
+        .lang-option:hover { background: rgba(0, 255, 136, 0.1); color: var(--primary); }
+        
+        .lang-option.active { background: linear-gradient(135deg, #00ff88, #00d4ff); color: var(--darker); }
+        
+        .lang-option.active::after { content: '✓'; margin-left: auto; font-weight: 900; }
+        
+        [dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+        
+        /* Header */
+        header {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            padding: 18px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient);
-            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            color: var(--darker-bg);
-            font-size: 1.5rem;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+            color: var(--darker);
+            font-size: 1.8rem;
+            box-shadow: var(--glow);
         }
         
         .logo-text {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            background: var(--gradient);
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-            white-space: nowrap;
         }
         
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
-        }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        
+        .nav-links { display: flex; gap: 15px; list-style: none; }
         
         .nav-links a {
-            color: var(--light-text);
+            color: var(--gray);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            padding: 8px 16px;
-            border-radius: 30px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            white-space: nowrap;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
         }
         
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: -1;
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--darker);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            box-shadow: var(--glow);
         }
         
-        .nav-links a:hover {
-            transform: translateY(-2px);
-        }
-        
-        .nav-links a:hover::before {
-            opacity: 0.1;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: var(--gradient);
-            border: none;
-            color: var(--darker-bg);
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            z-index: 1001;
-            transition: var(--transition);
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .mobile-menu-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
-        }
-        
-        /* تحسين القسم الرئيسي للجوال */
+        /* Hero with Circular Logo */
         .hero {
-            padding: 150px 0 80px;
+            padding: 180px 0 100px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.15) 0%, transparent 70%);
-            z-index: -1;
         }
         
         .logo-image {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 40px;
             position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 30px;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 50px rgba(0, 255, 136, 0.3);
-            animation: float 6s ease-in-out infinite;
-            border: 3px solid rgba(0, 255, 136, 0.3);
+            border-radius: 50%;
+            padding: 15px;
+            background: rgba(10, 20, 15, 0.6);
+            border: 3px solid rgba(0, 255, 136, 0.4);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.5), inset 0 0 40px rgba(0, 255, 136, 0.2);
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
+        .logo-image::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            opacity: 0.6;
+            animation: none;
+        }
+        
+        @keyframes ring-pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
         }
         
         .logo-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
+            border-radius: 50%;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.8)) brightness(1.1);
+            animation: none;
         }
         
-        .logo-image:hover img {
-            transform: scale(1.1);
+        @keyframes logo-breathe {
+            0%, 100% { transform: scale(1); }
+            50% { 
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 30px rgba(0, 255, 136, 1)) 
+                        drop-shadow(0 0 60px rgba(0, 212, 255, 0.8)) 
+                        brightness(1.2);
+            }
         }
         
         .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-        
-        .hero h1 span {
-            background: var(--gradient);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .hero h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-            border-radius: 2px;
-            transform: scaleX(0);
-            animation: expandLine 1.5s ease forwards 1s;
-        }
-        
-        @keyframes expandLine {
-            to { transform: scaleX(1); }
+            text-transform: uppercase;
+            direction: ltr;
+            text-align: center;
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--gray);
+            margin-bottom: 40px;
             max-width: 700px;
-            margin: 0 auto 40px;
-            color: var(--gray-text);
-            line-height: 1.8;
-            padding: 0 15px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: var(--gradient);
-            color: var(--darker-bg);
-            padding: 16px 32px;
-            border-radius: 50px;
+            gap: 12px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: var(--darker);
             text-decoration: none;
+            border-radius: 50px;
             font-weight: 700;
             font-size: 1.1rem;
-            transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            min-height: 56px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+            border: 2px solid var(--primary);
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-dark);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: -1;
-        }
+        .btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 40px rgba(0, 255, 136, 0.6); }
         
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.4);
-        }
+        /* Sections */
+        section { padding: 100px 0; }
         
-        .btn:hover::before {
-            opacity: 1;
-        }
-        
-        /* تحسين أقسام المحتوى للجوال */
-        section {
-            padding: 80px 0;
-            position: relative;
-        }
-        
-        /* ====== التصليح المهم هنا ====== */
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             text-align: center;
-            font-weight: 800;
-            position: relative;
-            display: block; /* غيرت من inline-block إلى block */
-            width: 100%;
-            padding: 0 20px;
-        }
-        
-        .section-title::before {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 5px;
-            background: var(--gradient);
-            border-radius: 3px;
-        }
-        
-        /* ====== تأكيد توسيط الحاويات ====== */
-        #download .container,
-        #compatibility .container,
-        #features .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .download-container,
-        .features-grid,
-        .social-grid,
-        .stats-container {
-            display: grid;
-            gap: 25px;
-            width: 100%;
-        }
-        
-        .download-card,
-        .feature-card,
-        .social-card,
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 30px 25px;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(0, 255, 136, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-        }
-        
-        .download-card::before,
-        .feature-card::before,
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient);
-        }
-        
-        .download-card:hover,
-        .feature-card:hover,
-        .social-card:hover,
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 136, 0.2);
-            border-color: rgba(0, 255, 136, 0.3);
-        }
-        
-        .download-card h3,
-        .feature-card h3,
-        .social-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .download-card p,
-        .feature-card p,
-        .social-card p {
-            color: var(--gray-text);
-            line-height: 1.8;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            box-shadow: none;
-        }
-        
-        .btn-outline:hover {
-            background: var(--gradient);
-            color: var(--darker-bg);
-            border-color: transparent;
-        }
-        
-        /* تحسين الإحصائيات للجوال */
-        .stat-card {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: var(--gradient);
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            line-height: 1;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        .stat-label {
-            font-size: 1.1rem;
-            color: var(--gray-text);
-            font-weight: 500;
+        .github-releases {
+            background: var(--card);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            margin: 0 auto;
+            transition: all 0.3s;
         }
         
-        /* تحسين الأيقونات للجوال */
-        .feature-icon,
+        .github-releases:hover { transform: translateY(-10px); border-color: var(--primary); }
+        
+        .github-releases h3 { font-size: 2rem; margin-bottom: 20px; color: var(--primary); }
+        
+        .github-releases p { color: var(--gray); margin-bottom: 30px; line-height: 1.8; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: var(--card);
+            padding: 45px 35px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 136, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6); }
+        
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--darker);
+            box-shadow: var(--glow);
+        }
+        
+        .feature-card h3 { font-size: 1.6rem; margin-bottom: 15px; color: var(--primary); }
+        
+        .feature-card p { color: var(--gray); line-height: 1.7; }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 60px;
+        }
+        
+        .social-card {
+            background: var(--card);
+            padding: 45px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 136, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .social-card:hover { transform: translateY(-12px); border-color: var(--primary); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+        
         .social-icon {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            padding: 18px;
-            border-radius: 15px;
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary-color);
-            transition: var(--transition);
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--darker);
+            box-shadow: var(--glow);
         }
         
-        .social-card:hover .social-icon {
-            transform: scale(1.1) rotate(5deg);
-            background: var(--gradient);
-            color: var(--darker-bg);
+        .social-card h3 { font-size: 1.5rem; margin-bottom: 12px; color: var(--primary); }
+        
+        .social-card p { color: var(--gray); margin-bottom: 20px; }
+        
+        .social-card a { color: var(--secondary); text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        
+        .social-card a:hover { color: var(--primary); }
+        
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 5, 0.95);
+            padding: 50px 0;
+            text-align: center;
+            border-top: 2px solid rgba(0, 255, 136, 0.2);
         }
         
-        /* تحسين الشعار ثلاثي الأبعاد للجوال */
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover { color: var(--primary); border-color: var(--primary); }
+        
+        .copyright { color: var(--gray); }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            background: var(--card);
+            transition: all 0.3s;
+        }
+        .hamburger:hover { border-color: var(--primary); }
+        .hamburger span {
+            width: 22px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+            display: block;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            padding: 20px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 255, 136, 0.15);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mobile-menu a:hover, .mobile-menu a.active {
+            color: var(--darker);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+
+            /* Header */
+            header { padding: 12px 0; }
+            .logo-icon { width: 38px; height: 38px; font-size: 1.3rem; border-radius: 10px; }
+            .logo-text { font-size: 1.3rem; }
+            .logo-container { gap: 10px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .nav-right { gap: 10px; }
+            .lang-switcher { padding: 6px 10px; gap: 6px; }
+            .lang-text { font-size: 0.8rem; }
+
+            /* Hero */
+            .hero { padding: 100px 0 60px; min-height: auto; }
+            .logo-image { width: 160px; height: 160px; margin-bottom: 25px; }
+            .hero h1 { font-size: 2.2rem; margin-bottom: 16px; }
+            .hero p { font-size: 1rem; margin-bottom: 28px; padding: 0 8px; }
+            .btn { padding: 14px 28px; font-size: 0.95rem; gap: 8px; }
+
+            /* Sections */
+            section { padding: 60px 0; }
+            .section-title { font-size: 1.8rem; margin-bottom: 35px; }
+
+            /* Download */
+            .github-releases { padding: 30px 20px; }
+            .github-releases h3 { font-size: 1.5rem; }
+
+            /* Features */
+            .features-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+                margin-top: 30px; 
+            }
+            .feature-card { padding: 30px 20px; }
+            .feature-icon { width: 65px; height: 65px; font-size: 1.8rem; margin-bottom: 16px; }
+            .feature-card h3 { font-size: 1.3rem; }
+
+            /* Social */
+            .social-grid { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 16px; 
+                margin-top: 30px; 
+            }
+            .social-card { padding: 25px 15px; }
+            .social-icon { width: 55px; height: 55px; font-size: 1.4rem; margin-bottom: 12px; }
+            .social-card h3 { font-size: 1.1rem; }
+            .social-card p { font-size: 0.85rem; margin-bottom: 10px; }
+            .social-card a { font-size: 0.8rem; word-break: break-all; }
+
+            /* Footer */
+            footer { padding: 35px 0; }
+            .footer-links { gap: 15px; }
+            .footer-links a { padding: 8px 14px; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 400px) {
+            .social-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.9rem; }
+            .logo-image { width: 130px; height: 130px; }
+        }
+
+        /* 3D Logo Section */
         .xanite-logo-container {
-            width: 100%;
-            padding: 60px 0;
+            padding: 120px 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 500px;
+            perspective: 2000px;
             position: relative;
-            background: rgba(0, 0, 0, 0.7);
             overflow: hidden;
         }
-        
+
+        .xanite-logo-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.2) 0%, transparent 70%);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
         .xanite-logo {
-            position: relative;
-            width: 100%;
-            max-width: 700px;
-            height: 180px;
             transform-style: preserve-3d;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        
+
         .letters-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
             transform-style: preserve-3d;
+            gap: 10px;
         }
-        
+
         .letter {
             position: absolute;
             transform-style: preserve-3d;
-            color: var(--primary-color);
-            font-size: 5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 900;
-            text-shadow: 0 0 15px var(--primary-color);
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 50%, #0088ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0,255,136,0.6), 0 0 40px rgba(0,255,136,0.4), 0 0 60px rgba(0,255,136,0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
             width: 70px;
             height: 110px;
-            text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.1s ease;
+            text-align: center;
         }
-        
+
         .letter::before {
             content: '';
             position: absolute;
@@ -560,823 +589,126 @@
             transform: translateZ(-25px);
             filter: blur(12px);
             border-radius: 8px;
+            z-index: -1;
         }
-        
-        /* تحسين الفوتر للجوال */
-        footer {
-            background: rgba(0, 0, 0, 0.95);
-            padding: 50px 0 25px;
-            border-top: 1px solid rgba(0, 255, 136, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-logo {
-            width: 100%;
-        }
-        
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            width: 100%;
-        }
-        
-        .footer-column h4 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h4::after {
-            content: '';
+
+        .letter::after {
+            content: attr(data-letter);
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 2px;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column a {
-            color: var(--gray-text);
-            text-decoration: none;
-            transition: var(--transition);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
+            z-index: -1;
+            color: rgba(0, 255, 136, 0.3);
+            transform: translateZ(-20px);
         }
-        
-        .footer-column a:hover {
-            color: var(--primary-color);
-            transform: translateX(5px);
+
+        .letter:hover {
+            text-shadow: 0 0 30px rgba(0,255,136,1), 0 0 60px rgba(0,255,136,0.8), 0 0 90px rgba(0,255,136,0.6);
         }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--gray-text);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        /* تحسين التنقل السلس للجوال */
-        @media (hover: none) and (pointer: coarse) {
-            .btn:hover,
-            .download-card:hover,
-            .feature-card:hover,
-            .social-card:hover,
-            .stat-card:hover,
-            .nav-links a:hover {
-                transform: none;
-            }
-            
-            .btn:active,
-            .download-card:active,
-            .feature-card:active,
-            .social-card:active,
-            .stat-card:active {
-                transform: scale(0.98);
-            }
-        }
-        
-        /* تحسينات للشاشات الصغيرة */
-        @media (max-width: 1200px) {
-            .container {
-                max-width: 95%;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            html {
-                font-size: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .letter {
-                font-size: 4.5rem;
-                width: 60px;
-                height: 95px;
-            }
-            
-            .download-container,
-            .features-grid,
-            .social-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
+
         @media (max-width: 768px) {
-            html {
-                font-size: 14px;
-            }
-            
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--card-bg);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 80px 30px;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-                transition: transform 0.3s ease;
-                transform: translateX(100%);
-                z-index: 1000;
-            }
-            
-            .nav-links.active {
-                display: flex;
-                transform: translateX(0);
-            }
-            
-            .mobile-menu-btn {
-                display: flex;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section-title {
-                font-size: 1.9rem;
-            }
-            
-            .logo-image {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .download-container,
-            .features-grid,
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
+            .xanite-logo-container { padding: 70px 0; min-height: 350px; }
+            .letter { font-size: 3rem; width: 50px; height: 80px; }
         }
-        
+
         @media (max-width: 480px) {
-            .hero {
-                padding: 120px 0 60px;
-            }
-            
-            .hero h1 {
-                font-size: 1.9rem;
-            }
-            
-            .section-title {
-                font-size: 1.7rem;
-            }
-            
-            .btn {
-                padding: 14px 28px;
-                font-size: 1rem;
-            }
-            
-            .download-card,
-            .feature-card,
-            .social-card {
-                padding: 20px 15px;
-            }
-        }
-        
-        .logo-image {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-image img {
-            max-width: 150px;  
-            height: auto;
-            border-radius: 50%;  
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-links a i {
-            margin-right: 8px;
-        }
-        
-        .nav-links a:hover {
-            color: var(--secondary-color);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-        
-        .mobile-menu.active {
-            display: block;
-        }
-        
-        .mobile-menu ul {
-            list-style: none;
-        }
-        
-        .mobile-menu li {
-            margin-bottom: 15px;
-        }
-        
-        .mobile-menu a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .mobile-menu a i {
-            margin-right: 10px;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 120px 0;
-            text-align: center;
-            background-color: rgba(30, 30, 30, 0.7);
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: var(--gray-text);
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: none;
-            font-size: 1.1rem;
-        }
-
-        .btn i {
-            margin-right: 10px;
-        }
-        
-        .btn:hover {
-            background-color: #555555;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        /* Download Section */
-        .download-section {
-            padding: 80px 0;
-            text-align: center;
-            background-color: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(5px);
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
-            border-radius: 2px;
-        }
-        
-        .download-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .github-releases {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            width: 100%;
-            max-width: 800px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .github-releases:hover {
-            transform: translateY(-5px);
-        }
-        
-        .github-releases h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
-        .github-releases p {
-            margin-bottom: 25px;
-            color: var(--gray-text);
-        }
-        
-        /* Compatibility Section */
-        .compatibility {
-            padding: 80px 0;
-            background-color: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(5px);
-        }
-        
-        .progress-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .progress-category {
-            margin-bottom: 30px;
-        }
-        
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .progress-label span:first-child {
-            display: flex;
-            align-items: center;
-        }
-        
-        .progress-label i {
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .progress-bar {
-            height: 30px;
-            background-color: var(--dark-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                            rgba(255, 255, 255, 0.1) 0%, 
-                            rgba(255, 255, 255, 0.3) 50%, 
-                            rgba(255, 255, 255, 0.1) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 2s infinite linear;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        .playable {
-            background-color: var(--primary-color);
-            width: 0%;
-        }
-        
-        .playable i {
-            color: var(--primary-color);
-        }
-        
-        .ingame {
-            background-color: #0078d7;
-            width: 0%;
-        }
-        
-        .ingame i {
-            color: #0078d7;
-        }
-        
-        .boots {
-            background-color: #ffaa44;
-            width: 0%;
-        }
-        
-        .boots i {
-            color: #ffaa44;
-        }
-        
-        .nothing {
-            background-color: #e81123;
-            width: 100%;
-        }
-        
-        .nothing i {
-            color: #e81123;
-        }
-
-        /* Compatibility Section */
-        .compatibility {
-            padding: 80px 0;
-            text-align: center;
-            background-color: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(5px);
-        }
-
-        .download-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .github-releases {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            width: 100%;
-            max-width: 800px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background-color: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(5px);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: var(--gray-text);
-        }
-        
-        /* Social Links Section */
-        .social-links {
-            padding: 60px 0;
-            text-align: center;
-            background-color: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(5px);
-        }
-        
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 800px;
-            margin: 50px auto 0;
-        }
-        
-        .social-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .social-card:hover {
-            transform: translateY(-5px);
-            background-color: rgba(42, 42, 42, 0.7);
-        }
-        
-        .social-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-        }
-        
-        .social-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .social-card a {
-            color: var(--gray-text);
-            text-decoration: none;
-            transition: color 0.3s;
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .social-card a:hover {
-            color: var(--secondary-color);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 40px 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links li {
-            margin: 0 15px;
-        }
-        
-        .footer-links a {
-            color: var(--gray-text);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary-color);
-        }
-        
-        .copyright {
-            color: var(--gray-text);
-            font-size: 0.9rem;
-            margin-top: 20px;
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-        
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-        
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-        
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-        
-        /* ===== إضافة مني للتأكد ===== */
-        /* تأكد أن العناوين في المنتصف */
-        #download h2.section-title,
-        #compatibility h2.section-title,
-        #features h2.section-title {
-            text-align: center !important;
-            display: block !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            float: none !important;
+            .xanite-logo-container { padding: 50px 0; min-height: 280px; }
+            .letter { font-size: 2.2rem; width: 38px; height: 60px; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <nav>
-                <div class="logo-container">
-                    <span class="logo-text">Xanite</span>
+            <div class="header-content">
+                <a href="index.html" class="logo-container">
+                    <div class="logo-icon">X</div>
+                    <span class="logo-text">XANITE</span>
+                </a>
+                <div class="nav-right">
+                    <nav class="nav-links">
+                        <a href="index.html" class="active"><i class="fas fa-home"></i> <span data-i18n="nav.home">Home</span></a>
+                        <a href="faq.html"><i class="fas fa-question-circle"></i> <span data-i18n="nav.faq">FAQ</span></a>
+                        <a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-i18n="nav.privacy">Privacy</span></a>
+                    </nav>
+                    <div class="lang-switcher" id="langSwitcher">
+                        <i class="fas fa-language"></i>
+                        <span class="lang-text" id="langText">English</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+                        <div class="lang-dropdown">
+                            <div class="lang-option active" data-lang="en" onclick="selectLanguage('en')">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" data-lang="ar" onclick="selectLanguage('ar')">
+                                <span>🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                        <span></span><span></span><span></span>
+                    </div>
                 </div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#download"><i class="fas fa-download"></i> Download</a></li>
-                    <li><a href="compatibility.html"><i class="fas fa-check-circle"></i> Compatibility</a></li>
-                    <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
-                    <li><a href="#social"><i class="fas fa-share-alt"></i> Community</a></li>
-                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a></li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
+            </div>
         </div>
     </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            const icon = mobileMenuBtn.querySelector('i');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                
-                // تغيير الأيقونة بين القائمة والإغلاق
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-            
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                });
-            });
-        });
-    </script>
+    <!-- Mobile Nav -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="active"><i class="fas fa-home"></i> <span data-i18n="nav.home">Home</span></a>
+        <a href="faq.html"><i class="fas fa-question-circle"></i> <span data-i18n="nav.faq">FAQ</span></a>
+        <a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-i18n="nav.privacy">Privacy</span></a>
+    </nav>
     
-    <section class="hero fade-in">
+    <section class="hero">
         <div class="container">
             <div class="logo-image">
-                <img src="https://raw.githubusercontent.com/dev-Ali2008/Xanite.io/42b60538d2284e939d5b9ae422dd3416eae9024b/ic_launcher_background.png" alt="Xanite Logo">
+                <img src="Logo/Xanite.png" alt="Xanite Logo">
             </div>
             
-            <h1>Xanite</h1>
-            <p>Experience Xbox original and Xbox 360 games on your Android device.</p>
-            <a href="#download" class="btn">
-                <i class="fas fa-download"></i> Get Latest Version
+            <h1>XANITE</h1>
+            <p data-i18n="hero.desc">Experience Xbox Original games on your Android device with enhanced graphics and high performance.</p>
+            <a href="#social" class="btn">
+                <i class="fas fa-users"></i> <span data-i18n="hero.btn">Join Community</span>
             </a>
         </div>
     </section>
     
-    <section id="download" class="download-section">
+    <section id="download">
         <div class="container">
-            <h2 class="section-title fade-in">Download</h2>
-            <div class="download-container">
-                <div class="github-releases fade-in delay-1">
-                    <h3>GitHub Releases</h3>
-                    <p>All releases are available on our GitHub repository. Click below to access the latest builds and previous versions.</p>
-                    <a href="https://github.com/dev-Ali2008/xanite/releases" target="_blank" class="btn">
-                        <i class="fab fa-github"></i> View on GitHub
-                    </a>
-                </div>
+            <h2 class="section-title" data-i18n="download.title">Download</h2>
+            <div class="github-releases">
+                <h3 data-i18n="download.soon">Coming Soon</h3>
+                <p data-i18n="download.desc">XANITE is currently under active development. Join our community to stay updated!</p>
+                <a href="https://discord.gg/U5kytJ4dub" target="_blank" class="btn">
+                    <i class="fab fa-discord"></i> <span data-i18n="download.btn">Join Discord</span>
+                </a>
             </div>
         </div>
     </section>
     
-    <section id="compatibility" class="compatibility">
+    <section id="features">
         <div class="container">
-            <h2 class="section-title fade-in">Game Compatibility</h2>
-            <div class="download-container fade-in delay-1">
-                <div class="github-releases">
-                    <h3>Game Compatibility List</h3>
-                    <p>Check the compatibility status of Xbox original games with our emulator. See which games are playable, have issues, or don't work yet.</p>
-                    <a href="compatibility.html" class="btn">
-                        <i class="fas fa-list"></i> View Compatibility List
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title fade-in">Features</h2>
+            <h2 class="section-title" data-i18n="features.title">Features</h2>
             <div class="features-grid">
-                <div class="feature-card fade-in delay-1">
-                    <div class="feature-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <h3>Performance</h3>
-                    <p>Optimized for Android devices with Software support for performance and compatibility.</p>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3 data-i18n="f1.title">High Performance</h3>
+                    <p data-i18n="f1.desc">Optimized for Android devices for maximum performance.</p>
                 </div>
-                
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Gamepad Support</h3>
-                    <p>Full support for Bluetooth and USB controllers like playstation, Xbox controllers and more</p>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3 data-i18n="f2.title">Gamepad Support</h3>
+                    <p data-i18n="f2.desc">Full support for Bluetooth and USB controllers.</p>
                 </div>
-                
-                <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <h3>HD Graphics</h3>
-                    <p>Enhanced resolution and texture filtering for improved visual quality.</p>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-image"></i></div>
+                    <h3 data-i18n="f3.title">HD Graphics</h3>
+                    <p data-i18n="f3.desc">Enhanced resolution for improved visual quality.</p>
                 </div>
             </div>
         </div>
@@ -1386,113 +718,186 @@
     <div class="xanite-logo-container">
         <div class="xanite-logo">
             <div class="letters-container" id="logo">
-                <div class="letter X">X</div>
-                <div class="letter A">A</div>
-                <div class="letter N">N</div>
-                <div class="letter I">I</div>
-                <div class="letter T">T</div>
-                <div class="letter E">E</div>
+                <div class="letter X" data-letter="X">X</div>
+                <div class="letter A" data-letter="A">A</div>
+                <div class="letter N" data-letter="N">N</div>
+                <div class="letter I" data-letter="I">I</div>
+                <div class="letter T" data-letter="T">T</div>
+                <div class="letter E" data-letter="E">E</div>
             </div>
         </div>
     </div>
 
-    <!-- Social Links Section -->
-    <section id="social" class="social-links">
+    <section id="social">
         <div class="container">
-            <h2 class="section-title">Join Our Community</h2>
+            <h2 class="section-title" data-i18n="social.title">Join Our Community</h2>
             <div class="social-grid">
                 <div class="social-card">
-                    <div class="social-icon">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <h3>YouTube</h3>
-                    <p>Watch tutorials and updates</p>
-                    <a href="https://youtube.com/@emulator_xanite?si=n7TRv-Gyh3mDktlV" target="_blank">youtube.com/@emulator_xanite</a>
+                    <div class="social-icon"><i class="fab fa-youtube"></i></div>
+                    <h3 data-i18n="s1.title">YouTube</h3>
+                    <p data-i18n="s1.desc">Watch tutorials and updates</p>
+                    <a href="https://www.youtube.com/@Emulator_XaniteOG" target="_blank">youtube.com/@Emulator_XaniteOG</a>
                 </div>
-                
                 <div class="social-card">
-                    <div class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Discord</h3>
-                    <p>Chat with the community</p>
+                    <div class="social-icon"><i class="fab fa-discord"></i></div>
+                    <h3 data-i18n="s2.title">Discord</h3>
+                    <p data-i18n="s2.desc">Chat with the community</p>
                     <a href="https://discord.gg/U5kytJ4dub" target="_blank">discord.gg/U5kytJ4dub</a>
                 </div>
-                
                 <div class="social-card">
-                    <div class="social-icon">
-                        <i class="fab fa-telegram"></i>
-                    </div>
-                    <h3>Telegram</h3>
-                    <p>Get latest news</p>
+                    <div class="social-icon"><i class="fab fa-telegram"></i></div>
+                    <h3 data-i18n="s3.title">Telegram</h3>
+                    <p data-i18n="s3.desc">Get latest news</p>
                     <a href="https://t.me/xanite_xbox" target="_blank">t.me/xanite_xbox</a>
                 </div>
-                
                 <div class="social-card">
-                    <div class="social-icon">
-                        <i class="fab fa-patreon fa-2x" style="color: #f96854;"></i>
-                    </div>
-                    <h3>Patreon</h3>
-                    <p>Support our project ( soon ) </p>
-                    <a href=" " target="_blank"></a>
+                    <div class="social-icon"><i class="fab fa-patreon" style="color: #f96854;"></i></div>
+                    <h3 data-i18n="s4.title">Patreon</h3>
+                    <p data-i18n="s4.desc">Support our project (coming soon)</p>
+                    <a href="#" data-i18n="s4.link">Stay tuned</a>
                 </div>
             </div>
         </div>
     </section>
     
-    <footer class="fade-in">
+    <footer>
         <div class="container">
             <ul class="footer-links">
-                <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> <span data-i18n="nav.faq">FAQ</span></a></li>
+                <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-i18n="footer.privacy">Privacy Policy</span></a></li>
             </ul>
-            <p class="copyright">© 2025 Xanite Emulator Project. All rights reserved.</p>
+            <p class="copyright" data-i18n="copyright">© 2025 Xanite Emulator Project. All rights reserved.</p>
         </div>
     </footer>
     
     <script>
-        // Simple animation trigger
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.fade-in');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            animatedElements.forEach(element => {
-                element.style.opacity = 0;
-                observer.observe(element);
-            });
+        function toggleMenu() {
+            const h = document.getElementById('hamburger');
+            const m = document.getElementById('mobileMenu');
+            h.classList.toggle('open');
+            m.classList.toggle('open');
+        }
+
+        const t = {
+            en: {
+                langName: "English",
+                nav: { home: "Home", faq: "FAQ", privacy: "Privacy" },
+                hero: {
+                    desc: "Experience Xbox Original games on your Android device with enhanced graphics and high performance.",
+                    btn: "Join Community"
+                },
+                download: {
+                    title: "Download",
+                    soon: "Coming Soon",
+                    desc: "XANITE is currently under active development. Join our community to stay updated!",
+                    btn: "Join Discord"
+                },
+                features: { title: "Features" },
+                f1: { title: "High Performance", desc: "Optimized for Android devices for maximum performance." },
+                f2: { title: "Gamepad Support", desc: "Full support for Bluetooth and USB controllers." },
+                f3: { title: "HD Graphics", desc: "Enhanced resolution for improved visual quality." },
+                social: { title: "Join Our Community" },
+                s1: { title: "YouTube", desc: "Watch tutorials and updates" },
+                s2: { title: "Discord", desc: "Chat with the community" },
+                s3: { title: "Telegram", desc: "Get latest news" },
+                s4: { title: "Patreon", desc: "Support our project (coming soon)", link: "Stay tuned" },
+                footer: { privacy: "Privacy Policy" },
+                copyright: "© 2025 Xanite Emulator Project. All rights reserved."
+            },
+            ar: {
+                langName: "العربية",
+                nav: { home: "الرئيسية", faq: "الأسئلة", privacy: "الخصوصية" },
+                hero: {
+                    desc: "استمتع بألعاب Xbox Original على جهاز الأندرويد مع رسومات محسنة وأداء عالي.",
+                    btn: "انضم للمجتمع"
+                },
+                download: {
+                    title: "التحميل",
+                    soon: "قريباً",
+                    desc: "XANITE حالياً قيد التطوير. انضم إلى مجتمعنا لتبقى على اطلاع!",
+                    btn: "انضم إلى Discord"
+                },
+                features: { title: "المميزات" },
+                f1: { title: "أداء عالي", desc: "محسّن لأجهزة الأندرويد لأقصى أداء." },
+                f2: { title: "دعم ذراع التحكم", desc: "دعم كامل لأذرع التحكم عبر البلوتوث و USB." },
+                f3: { title: "رسومات HD", desc: "دقة محسّنة لتحسين الجودة البصرية." },
+                social: { title: "انضم إلى مجتمعنا" },
+                s1: { title: "يوتيوب", desc: "شاهد التعليمات والتحديثات" },
+                s2: { title: "ديسكورد", desc: "تحدث مع المجتمع" },
+                s3: { title: "تليجرام", desc: "احصل على آخر الأخبار" },
+                s4: { title: "باتريون", desc: "ادعم مشروعنا (قريباً)", link: "قريباً" },
+                footer: { privacy: "سياسة الخصوصية" },
+                copyright: "© 2025 مشروع محاكي Xanite. جميع الحقوق محفوظة."
+            }
+        };
+        
+        let lang = 'en';
+        
+        document.getElementById('langSwitcher').addEventListener('click', function(e) {
+            if (!e.target.closest('.lang-option')) this.classList.toggle('active');
         });
         
+        document.addEventListener('click', function(e) {
+            const ls = document.getElementById('langSwitcher');
+            if (!ls.contains(e.target)) ls.classList.remove('active');
+        });
+        
+        function selectLanguage(l) {
+            lang = l;
+            localStorage.setItem('xanite-language', l);
+            applyLanguage(l);
+            document.getElementById('langSwitcher').classList.remove('active');
+        }
+        
+        function applyLanguage(l) {
+            const html = document.documentElement;
+            const tr = t[l];
+            
+            html.setAttribute('lang', l);
+            html.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
+            
+            document.getElementById('langText').textContent = tr.langName;
+            
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.getAttribute('data-lang') === l);
+            });
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const keys = el.getAttribute('data-i18n').split('.');
+                let val = tr;
+                for (const k of keys) {
+                    val = val[k];
+                    if (!val) break;
+                }
+                if (val) el.textContent = val;
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('xanite-language');
+            if (saved) applyLanguage(saved);
+        });
+    </script>
+    <script>
         // 3D Logo Animation
         const letters = document.querySelectorAll('.letter');
-        
-        // Letter positions in 3D space
         const letterPositions = [
             { x: -250, y: 0, z: 0 },
             { x: -150, y: 0, z: 0 },
-            { x: -50, y: 0, z: 0 },
-            { x: 50, y: 0, z: 0 },
-            { x: 150, y: 0, z: 0 },
-            { x: 250, y: 0, z: 0 }
+            { x: -50,  y: 0, z: 0 },
+            { x:  50,  y: 0, z: 0 },
+            { x:  150, y: 0, z: 0 },
+            { x:  250, y: 0, z: 0 }
         ];
-        
+
         let rotateY = 0;
         let rotateX = 10;
-        
-        // Animation function
-        function animate() {
+
+        function animate3D() {
             rotateY += 0.5;
-            
             letters.forEach((letter, index) => {
                 const wave = Math.sin((rotateY + index * 60) * 0.02) * 10;
-                const scale = window.innerWidth / 600;
-                
+                const scale = Math.min(window.innerWidth / 600, 1);
                 letter.style.transform = `
                     translateX(${letterPositions[index].x * scale}px)
                     translateY(${wave}px)
@@ -1501,20 +906,15 @@
                     rotateX(${rotateX}deg)
                 `;
             });
-            
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animate3D);
         }
-        
-        // Handle mouse movement for interactive rotation
+
         document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
             const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
-            
             rotateX = 10 + yAxis;
         });
-        
-        // Start animation
-        animate();
+
+        animate3D();
     </script>
 </body>
 </html>

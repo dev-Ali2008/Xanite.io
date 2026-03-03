@@ -1,1243 +1,508 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Xanite Emulator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #00ff88;
-            --secondary-color: #00aaff;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --light-text: #ffffff;
-            --gray-text: #cccccc;
-            --card-bg: rgba(20, 20, 30, 0.95);
-            --border-color: rgba(0, 255, 136, 0.2);
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            --warning-color: #ffaa44;
-            --success-color: #00ff88;
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --dark: #0a0a0a;
+            --darker: #030303;
+            --card: rgba(15, 25, 20, 0.85);
+            --text: #ffffff;
+            --gray: #b0b0b0;
+            --glow: 0 0 20px rgba(0, 255, 136, 0.6);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        [dir="rtl"] { font-family: 'Cairo', sans-serif; }
         
         body {
-            background-color: var(--darker-bg);
-            color: var(--light-text);
-            line-height: 1.6;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 80% 80%, rgba(0, 170, 255, 0.05) 0%, transparent 20%);
+            font-family: 'Exo 2', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 40%);
+            z-index: -1;
         }
         
-        /* Header Styles */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 25px; }
+        
+        .lang-switcher {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card);
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-switcher:hover { border-color: var(--primary); box-shadow: var(--glow); }
+        .lang-text { color: var(--text); font-weight: 700; font-size: 0.95rem; }
+        
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--card);
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 10px;
+            min-width: 150px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .lang-switcher.active .lang-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .lang-option:hover { background: rgba(0, 255, 136, 0.1); color: var(--primary); }
+        .lang-option.active { background: linear-gradient(135deg, #00ff88, #00d4ff); color: var(--darker); }
+        .lang-option.active::after { content: '✓'; margin-left: auto; }
+        [dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+        
         header {
-            background-color: rgba(10, 10, 10, 0.98);
-            padding: 15px 0;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            padding: 18px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(15px);
-            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
         
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
+        .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient);
-            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            color: var(--darker-bg);
-            font-size: 1.5rem;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+            color: var(--darker);
+            font-size: 1.8rem;
+            box-shadow: var(--glow);
         }
         
         .logo-text {
             font-size: 1.8rem;
             font-weight: 900;
-            background: var(--gradient);
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-            align-items: center;
-        }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-links { display: flex; gap: 15px; list-style: none; }
         
         .nav-links a {
-            color: var(--gray-text);
+            color: var(--gray);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 8px 16px;
-            border-radius: 20px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            border: 2px solid transparent;
         }
         
-        .nav-links a:hover {
-            color: var(--primary-color);
-            background: rgba(0, 255, 136, 0.1);
-            transform: translateY(-2px);
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--darker);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            box-shadow: var(--glow);
         }
         
-        .nav-links a.active {
-            color: var(--primary-color);
-            background: rgba(0, 255, 136, 0.1);
-        }
-        
-        /* Hero Section */
         .privacy-hero {
-            padding: 100px 0 60px;
+            padding: 120px 0 80px;
             text-align: center;
-            position: relative;
-        }
-        
-        .privacy-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
-            z-index: -1;
         }
         
         .privacy-hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-family: 'Orbitron', sans-serif;
             margin-bottom: 20px;
-            background: var(--gradient);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 900;
         }
         
         .privacy-hero p {
             font-size: 1.2rem;
-            color: var(--gray-text);
+            color: var(--gray);
             max-width: 700px;
-            margin: 0 auto 40px;
-            line-height: 1.8;
-        }
-        
-        .privacy-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 255, 136, 0.1);
-            padding: 12px 25px;
-            border-radius: 25px;
-            margin: 20px 0;
-            border: 1px solid var(--border-color);
-        }
-        
-        /* Policy Navigation */
-        .policy-nav {
-            padding: 30px 0;
-            background: var(--card-bg);
-            border-radius: 15px;
-            margin: 40px 0;
-            border: 1px solid var(--border-color);
-        }
-        
-        .policy-nav h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-            font-size: 1.8rem;
-        }
-        
-        .nav-links-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .nav-link {
-            padding: 12px 25px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            color: var(--gray-text);
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .nav-link:hover {
-            background: var(--gradient);
-            color: var(--darker-bg);
-            border-color: transparent;
-            transform: translateY(-3px);
-        }
-        
-        /* Policy Content */
-        .policy-content {
-            padding: 60px 0;
+            margin: 0 auto;
         }
         
         .policy-section {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
+            padding: 40px 0 100px;
         }
         
-        .policy-section:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        .policy-content {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(0, 255, 136, 0.15);
         }
         
-        .section-header {
+        .policy-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
         }
         
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--darker-bg);
-            font-size: 1.5rem;
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-        
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--gray-text);
-            margin-top: 5px;
-        }
-        
-        .policy-text {
-            color: var(--gray-text);
+        .policy-content p {
+            color: var(--gray);
             line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        
-        .policy-text p {
             margin-bottom: 15px;
         }
         
-        .policy-list {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .policy-list li {
-            margin-bottom: 12px;
-            color: var(--gray-text);
-            line-height: 1.6;
-        }
-        
-        .policy-list li strong {
-            color: var(--primary-color);
-        }
-        
-        /* Info Boxes */
-        .info-box {
-            background: rgba(0, 255, 136, 0.05);
-            border-left: 4px solid var(--primary-color);
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .warning-box {
-            background: rgba(255, 170, 68, 0.05);
-            border-left: 4px solid var(--warning-color);
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .info-box-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-        
-        .warning-box-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            color: var(--warning-color);
-            font-weight: 600;
-        }
-        
-        /* Privacy Principles */
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .principle-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            transition: all 0.3s;
-        }
-        
-        .principle-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .principle-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        .principle-title {
-            font-size: 1.3rem;
-            color: var(--light-text);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .principle-description {
-            color: var(--gray-text);
-            line-height: 1.6;
-        }
-        
-        /* Table Styling */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .data-table th {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary-color);
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid var(--border-color);
-        }
-        
-        .data-table td {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--gray-text);
-        }
-        
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .data-table tr:hover {
-            background: rgba(0, 255, 136, 0.05);
-        }
-        
-        /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.95);
-            padding: 60px 0 30px;
-            border-top: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            margin-top: 60px;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 2px;
+            background: rgba(5, 5, 5, 0.95);
+            padding: 50px 0;
+            text-align: center;
+            border-top: 2px solid rgba(0, 255, 136, 0.2);
         }
         
         .footer-links {
             list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .footer-links a {
-            color: var(--gray-text);
+            color: var(--text);
             text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover { color: var(--primary); border-color: var(--primary); }
+        
+        .copyright { color: var(--gray); }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            background: var(--card);
+            transition: all 0.3s;
+        }
+        .hamburger:hover { border-color: var(--primary); }
+        .hamburger span {
+            width: 22px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+            display: block;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: sticky;
+            top: 70px;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            padding: 20px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 255, 136, 0.15);
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .footer-links a:hover {
-            color: var(--primary-color);
-            transform: translateX(5px);
+        .mobile-menu a:hover, .mobile-menu a.active {
+            color: var(--darker);
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
         }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--gray-text);
-            font-size: 0.9rem;
-        }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--darker-bg);
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.4);
-        }
-        
-        /* Responsive Design */
+
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            
-            .privacy-hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .policy-section {
-                padding: 25px;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .principles-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .data-table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .privacy-hero h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .policy-section {
-                padding: 20px;
-            }
-            
-            .nav-links-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .nav-link {
-                width: 100%;
-                justify-content: center;
-            }
+            .container { padding: 0 16px; }
+
+            header { padding: 12px 0; }
+            .logo-icon { width: 38px; height: 38px; font-size: 1.3rem; border-radius: 10px; }
+            .logo-text { font-size: 1.3rem; }
+            .logo-container { gap: 10px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .nav-right { gap: 10px; }
+            .lang-switcher { padding: 6px 10px; gap: 6px; }
+            .lang-text { font-size: 0.8rem; }
+
+            .privacy-hero { padding: 60px 0 40px; }
+            .privacy-hero h1 { font-size: 1.8rem; }
+            .privacy-hero p { font-size: 0.95rem; }
+
+            .policy-section { padding: 20px 0 60px; }
+            .policy-content { padding: 22px 18px; margin-bottom: 20px; border-radius: 14px; }
+            .policy-content h2 { font-size: 1.3rem; gap: 10px; margin-bottom: 14px; }
+            .policy-content p { font-size: 0.95rem; }
+
+            footer { padding: 30px 0; }
+            .footer-links { gap: 15px; }
+            .footer-links a { padding: 8px 14px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-chevron-up"></i>
-    </div>
-    
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <a href="index.html" class="logo-container">
                     <div class="logo-icon">X</div>
-                    <div class="logo-text">XANITE</div>
+                    <span class="logo-text">XANITE</span>
                 </a>
-                <ul class="nav-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="index.html#download"><i class="fas fa-download"></i> Download</a></li>
-                    <li><a href="compatibility.html"><i class="fas fa-list-check"></i> Compatibility</a></li>
-                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="privacy.html" class="active"><i class="fas fa-shield-alt"></i> Privacy</a></li>
-                </ul>
+                <div class="nav-right">
+                    <nav class="nav-links">
+                        <a href="index.html"><i class="fas fa-home"></i> <span data-i18n="nav.home">Home</span></a>
+                        <a href="faq.html"><i class="fas fa-question-circle"></i> <span data-i18n="nav.faq">FAQ</span></a>
+                        <a href="privacy.html" class="active"><i class="fas fa-shield-alt"></i> <span data-i18n="nav.privacy">Privacy</span></a>
+                    </nav>
+                    <div class="lang-switcher" id="langSwitcher">
+                        <i class="fas fa-language"></i>
+                        <span class="lang-text" id="langText">English</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+                        <div class="lang-dropdown">
+                            <div class="lang-option active" data-lang="en" onclick="selectLanguage('en')">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" data-lang="ar" onclick="selectLanguage('ar')">
+                                <span>🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-    
-    <!-- Hero Section -->
-    <section class="privacy-hero">
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="index.html"><i class="fas fa-home"></i> <span data-i18n="nav.home">Home</span></a>
+        <a href="faq.html"><i class="fas fa-question-circle"></i> <span data-i18n="nav.faq">FAQ</span></a>
+        <a href="privacy.html" class="active"><i class="fas fa-shield-alt"></i> <span data-i18n="nav.privacy">Privacy</span></a>
+    </nav>
         <div class="container">
-            <h1>Privacy Policy</h1>
-            <p>Your privacy is our priority. This policy explains how Xanite Emulator protects your data and respects your privacy rights.</p>
+            <h1 data-i18n="hero.title">Privacy Policy</h1>
+            <p data-i18n="hero.desc">Your privacy is important to us. This policy explains how we handle your data.</p>
+        </div>
+    </section>
+    
+    <section class="policy-section">
+        <div class="container">
+            <div class="policy-content">
+                <h2><i class="fas fa-info-circle"></i> <span data-i18n="s1.title">Introduction</span></h2>
+                <p data-i18n="s1.desc">Xanite Emulator is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information.</p>
+            </div>
             
-            <div class="privacy-badge">
-                <i class="fas fa-shield-alt"></i>
-                <span>Last Updated: December 2025</span>
+            <div class="policy-content">
+                <h2><i class="fas fa-database"></i> <span data-i18n="s2.title">Information We Collect</span></h2>
+                <p data-i18n="s2.desc">We collect minimal data necessary to provide and improve our services. This includes device information for optimization.</p>
+            </div>
+            
+            <div class="policy-content">
+                <h2><i class="fas fa-lock"></i> <span data-i18n="s3.title">Data Security</span></h2>
+                <p data-i18n="s3.desc">We implement industry-standard security measures to protect your information, including encryption and secure authentication.</p>
+            </div>
+            
+            <div class="policy-content">
+                <h2><i class="fas fa-user-shield"></i> <span data-i18n="s4.title">Your Rights</span></h2>
+                <p data-i18n="s4.desc">You have the right to access, modify, or delete your personal data at any time. Contact us for any privacy concerns.</p>
             </div>
         </div>
     </section>
     
-    <!-- Policy Navigation -->
-    <section class="policy-nav">
-        <div class="container">
-            <h2>Quick Navigation</h2>
-            <div class="nav-links-container">
-                <a href="#data-collection" class="nav-link">
-                    <i class="fas fa-database"></i> Data Collection
-                </a>
-                <a href="#data-usage" class="nav-link">
-                    <i class="fas fa-chart-line"></i> Data Usage
-                </a>
-                <a href="#user-rights" class="nav-link">
-                    <i class="fas fa-user-shield"></i> Your Rights
-                </a>
-                <a href="#security" class="nav-link">
-                    <i class="fas fa-lock"></i> Security
-                </a>
-                <a href="#third-party" class="nav-link">
-                    <i class="fas fa-external-link-alt"></i> Third Parties
-                </a>
-                <a href="#contact" class="nav-link">
-                    <i class="fas fa-envelope"></i> Contact
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Policy Content -->
-    <section class="policy-content">
-        <div class="container">
-            
-            <!-- Data Collection Section -->
-            <div class="policy-section" id="data-collection">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div>
-                        <h2 class="section-title">Data Collection</h2>
-                        <div class="section-subtitle">What we collect and what we don't</div>
-                    </div>
-                </div>
-                
-                <div class="policy-text">
-                    <p>Xanite Emulator is designed with privacy as a core principle. We believe in minimal data collection and maximum transparency.</p>
-                    
-                    <div class="info-box">
-                        <div class="info-box-header">
-                            <i class="fas fa-check-circle"></i>
-                            <h3>What We DO NOT Collect</h3>
-                        </div>
-                        <ul class="policy-list">
-                            <li><strong>Personal Information:</strong> Name, email, phone number, or physical address</li>
-                            <li><strong>Device Identifiers:</strong> IMEI, MAC address, or unique device IDs</li>
-                            <li><strong>Game Files:</strong> Your game ROMs, ISOs, or save files</li>
-                            <li><strong>Usage Data:</strong> What games you play, for how long, or when</li>
-                            <li><strong>Location Data:</strong> GPS location or IP-based location tracking</li>
-                            <li><strong>Contact Information:</strong> Contacts from your device or social media</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="info-box">
-                        <div class="info-box-header">
-                            <i class="fas fa-info-circle"></i>
-                            <h3>What We MAY Collect (Optional)</h3>
-                        </div>
-                        <ul class="policy-list">
-                            <li><strong>Crash Reports:</strong> Anonymous crash data to fix bugs (opt-in)</li>
-                            <li><strong>Performance Metrics:</strong> Aggregated, anonymous performance data (opt-in)</li>
-                            <li><strong>App Usage Statistics:</strong> Basic usage patterns to improve the app (opt-in)</li>
-                        </ul>
-                    </div>
-                    
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Data Type</th>
-                                <th>Collected</th>
-                                <th>Purpose</th>
-                                <th>Storage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Personal Information</td>
-                                <td><span style="color: var(--success-color);">❌ Never</span></td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>Game Files</td>
-                                <td><span style="color: var(--success-color);">❌ Never</span></td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>Crash Reports</td>
-                                <td><span style="color: var(--warning-color);">⚠️ Optional</span></td>
-                                <td>Bug fixing</td>
-                                <td>30 days</td>
-                            </tr>
-                            <tr>
-                                <td>Performance Data</td>
-                                <td><span style="color: var(--warning-color);">⚠️ Optional</span></td>
-                                <td>Optimization</td>
-                                <td>90 days</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Data Usage Section -->
-            <div class="policy-section" id="data-usage">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h2 class="section-title">Data Usage & Sharing</h2>
-                        <div class="section-subtitle">How we use data and who has access</div>
-                    </div>
-                </div>
-                
-                <div class="policy-text">
-                    <p>Any data collected (all optional) is used exclusively to improve Xanite Emulator and provide better user experience.</p>
-                    
-                    <div class="principles-grid">
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-bug"></i>
-                            </div>
-                            <h3 class="principle-title">Crash Reporting</h3>
-                            <p class="principle-description">Anonymous crash data helps us identify and fix bugs faster. No personal information is included in crash reports.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                            <h3 class="principle-title">Performance Optimization</h3>
-                            <p class="principle-description">Aggregated performance data helps us optimize Xanite for different device types and Android versions.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                            <h3 class="principle-title">Usage Analytics</h3>
-                            <p class="principle-description">Anonymous usage patterns help us understand which features are most popular and need improvement.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="warning-box">
-                        <div class="warning-box-header">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <h3>Data Sharing Policy</h3>
-                        </div>
-                        <p>We <strong>DO NOT</strong> sell, rent, or trade any user data. We <strong>DO NOT</strong> share data with third-party advertisers or analytics companies. Any collected data is used internally only for improving Xanite Emulator.</p>
-                    </div>
-                    
-                    <h3 style="color: var(--primary-color); margin: 25px 0 15px;">Legal Disclosures</h3>
-                    <ul class="policy-list">
-                        <li>We may disclose information if required by law or in response to valid legal process</li>
-                        <li>We may share aggregated, anonymous data for research or statistical purposes</li>
-                        <li>In the event of a merger or acquisition, user data may be transferred to the new entity</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- User Rights Section -->
-            <div class="policy-section" id="user-rights">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <div>
-                        <h2 class="section-title">Your Rights & Controls</h2>
-                        <div class="section-subtitle">You're in control of your data</div>
-                    </div>
-                </div>
-                
-                <div class="policy-text">
-                    <p>You have complete control over your data. Here are your rights and how to exercise them:</p>
-                    
-                    <div class="principles-grid">
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                            <h3 class="principle-title">Right to Access</h3>
-                            <p class="principle-description">You can request information about what data we have about you (if any).</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-trash-alt"></i>
-                            </div>
-                            <h3 class="principle-title">Right to Delete</h3>
-                            <p class="principle-description">You can request deletion of any data we have collected about you.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-toggle-off"></i>
-                            </div>
-                            <h3 class="principle-title">Right to Opt-Out</h3>
-                            <p class="principle-description">You can disable all data collection in the app settings at any time.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-box">
-                        <div class="info-box-header">
-                            <i class="fas fa-cogs"></i>
-                            <h3>How to Control Your Data</h3>
-                        </div>
-                        <p><strong>Within Xanite Emulator:</strong></p>
-                        <ul class="policy-list">
-                            <li>Go to <strong>Settings → Privacy</strong> to control data collection options</li>
-                            <li>Toggle "Crash Reporting" on/off as desired</li>
-                            <li>Toggle "Performance Analytics" on/off as desired</li>
-                            <li>Toggle "Usage Statistics" on/off as desired</li>
-                        </ul>
-                        <p style="margin-top: 15px;"><strong>Via Email:</strong> Contact us at <a href="mailto:privacy@xanite-emulator.com" style="color: var(--secondary-color);">privacy@xanite-emulator.com</a> for data requests.</p>
-                    </div>
-                    
-                    <h3 style="color: var(--primary-color); margin: 25px 0 15px;">Data Retention Period</h3>
-                    <ul class="policy-list">
-                        <li>Crash reports: Retained for 30 days then automatically deleted</li>
-                        <li>Performance data: Retained for 90 days then automatically deleted</li>
-                        <li>Usage statistics: Retained for 90 days then automatically deleted</li>
-                        <li>All data is anonymized and cannot be traced back to individual users</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Security Section -->
-            <div class="policy-section" id="security">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div>
-                        <h2 class="section-title">Security Measures</h2>
-                        <div class="section-subtitle">How we protect your data</div>
-                    </div>
-                </div>
-                
-                <div class="policy-text">
-                    <p>We take security seriously and implement multiple layers of protection for your data.</p>
-                    
-                    <div class="principles-grid">
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h3 class="principle-title">Open Source Transparency</h3>
-                            <p class="principle-description">Xanite is open source. Anyone can review our code on GitHub to verify our privacy claims.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3 class="principle-title">Data Encryption</h3>
-                            <p class="principle-description">All transmitted data is encrypted using industry-standard TLS/SSL protocols.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <h3 class="principle-title">Secure Storage</h3>
-                            <p class="principle-description">Data is stored on secure servers with limited access and regular security audits.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-box">
-                        <div class="info-box-header">
-                            <i class="fas fa-mobile-alt"></i>
-                            <h3>Local Data Protection</h3>
-                        </div>
-                        <p><strong>On Your Device:</strong></p>
-                        <ul class="policy-list">
-                            <li>Game files remain <strong>100% local</strong> on your device</li>
-                            <li>Save files are stored locally in app-private directories</li>
-                            <li>No data leaves your device without your explicit permission</li>
-                            <li>All local storage uses Android's built-in security features</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="warning-box">
-                        <div class="warning-box-header">
-                            <i class="fas fa-user-secret"></i>
-                            <h3>Your Responsibility</h3>
-                        </div>
-                        <p>While we protect your data on our end, you also play a role in security:</p>
-                        <ul class="policy-list">
-                            <li>Keep your Android device updated with the latest security patches</li>
-                            <li>Use strong passwords or biometric locks on your device</li>
-                            <li>Only download Xanite from official sources (GitHub or our website)</li>
-                            <li>Be cautious of third-party mods or modified versions</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Third Party Section -->
-            <div class="policy-section" id="third-party">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-external-link-alt"></i>
-                    </div>
-                    <div>
-                        <h2 class="section-title">Third-Party Services</h2>
-                        <div class="section-subtitle">External services we may use</div>
-                    </div>
-                </div>
-                
-                <div class="policy-text">
-                    <p>Xanite may use or interact with third-party services for specific functionalities. Here's what you need to know:</p>
-                    
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Purpose</th>
-                                <th>Data Shared</th>
-                                <th>Privacy Policy</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>GitHub</td>
-                                <td>Code hosting & issue tracking</td>
-                                <td>Bug reports (anonymous)</td>
-                                <td><a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" style="color: var(--secondary-color);">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>Discord</td>
-                                <td>Community support</td>
-                                <td>Only if you choose to join</td>
-                                <td><a href="https://discord.com/privacy" style="color: var(--secondary-color);">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>Android System</td>
-                                <td>App functionality</td>
-                                <td>Standard Android app data</td>
-                                <td><a href="https://policies.google.com/privacy" style="color: var(--secondary-color);">View</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <div class="info-box">
-                        <div class="info-box-header">
-                            <i class="fas fa-link"></i>
-                            <h3>External Links</h3>
-                        </div>
-                        <p>Our website and documentation may contain links to external sites. We are not responsible for the privacy practices or content of these external sites. We encourage you to review their privacy policies before providing any personal information.</p>
-                    </div>
-                    
-                    <div class="warning-box">
-                        <div class="warning-box-header">
-                            <i class="fas fa-gamepad"></i>
-                            <h3>Game Files & ROMs</h3>
-                        </div>
-                        <p><strong>Important:</strong> Xanite does not provide game files. You must source your own legally-owned games. We are not responsible for:</p>
-                        <ul class="policy-list">
-                            <li>The legality of game files you use</li>
-                            <li>Malware or viruses in downloaded game files</li>
-                            <li>Copyright infringement by users</li>
-                            <li>Quality or authenticity of third-party game files</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Contact Section -->
-            <div class="policy-section" id="contact">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h2 class="section-title">Contact & Updates</h2>
-                        <div class="section-subtitle">How to reach us and policy changes</div>
-                    </div>
-                </div>
-                
-                <div class="policy-text">
-                    <p>We're committed to transparency and welcome your questions about our privacy practices.</p>
-                    
-                    <div class="principles-grid">
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-question-circle"></i>
-                            </div>
-                            <h3 class="principle-title">Questions & Concerns</h3>
-                            <p class="principle-description">If you have questions about this policy or our practices, please contact us.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-bug"></i>
-                            </div>
-                            <h3 class="principle-title">Report Issues</h3>
-                            <p class="principle-description">Found a security vulnerability? Please report it responsibly.</p>
-                        </div>
-                        
-                        <div class="principle-card">
-                            <div class="principle-icon">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <h3 class="principle-title">Policy Updates</h3>
-                            <p class="principle-description">We may update this policy. Check back periodically for changes.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-box">
-                        <div class="info-box-header">
-                            <i class="fas fa-envelope"></i>
-                            <h3>Contact Information</h3>
-                        </div>
-                        <p><strong>For Privacy Concerns:</strong> <a href="mailto:privacy@xanite-emulator.com" style="color: var(--secondary-color);">privacy@xanite-emulator.com</a></p>
-                        <p><strong>For Security Issues:</strong> <a href="mailto:security@xanite-emulator.com" style="color: var(--secondary-color);">security@xanite-emulator.com</a></p>
-                        <p><strong>General Support:</strong> Use our <a href="faq.html" style="color: var(--secondary-color);">FAQ page</a> or join our <a href="https://discord.gg/U5kytJ4dub" style="color: var(--secondary-color);">Discord community</a></p>
-                        <p><strong>GitHub:</strong> <a href="https://github.com/dev-Ali2008/xanite" style="color: var(--secondary-color);">github.com/dev-Ali2008/xanite</a></p>
-                    </div>
-                    
-                    <div class="warning-box">
-                        <div class="warning-box-header">
-                            <i class="fas fa-calendar-alt"></i>
-                            <h3>Policy Changes</h3>
-                        </div>
-                        <p>We may update this Privacy Policy from time to time. When we do, we will:</p>
-                        <ul class="policy-list">
-                            <li>Update the "Last Updated" date at the top of this page</li>
-                            <li>Post a notice on our website if changes are significant</li>
-                            <li>Provide a summary of changes for transparency</li>
-                            <li>Archive previous versions for reference</li>
-                        </ul>
-                        <p style="margin-top: 15px;">Your continued use of Xanite after changes constitutes acceptance of the updated policy.</p>
-                    </div>
-                    
-                    <div class="info-box" style="background: rgba(0, 170, 255, 0.05); border-left-color: var(--secondary-color);">
-                        <div class="info-box-header">
-                            <i class="fas fa-gavel"></i>
-                            <h3>Legal Compliance</h3>
-                        </div>
-                        <p>Xanite Emulator complies with:</p>
-                        <ul class="policy-list">
-                            <li>General Data Protection Regulation (GDPR) for EU users</li>
-                            <li>California Consumer Privacy Act (CCPA) for California users</li>
-                            <li>Children's Online Privacy Protection Act (COPPA) - We do not knowingly collect data from children under 13</li>
-                            <li>Other applicable privacy laws and regulations</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Final Notice -->
-            <div class="policy-section" style="text-align: center; background: rgba(0, 255, 136, 0.05);">
-                <div class="section-header" style="justify-content: center; border-bottom: none;">
-                    <div class="section-icon" style="background: rgba(0, 255, 136, 0.2);">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-                <h2 style="color: var(--primary-color); margin: 20px 0;">Thank You for Trusting Xanite</h2>
-                <p style="color: var(--gray-text); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
-                    We believe privacy is a fundamental right, not a premium feature. That's why we've built Xanite with privacy as a core principle from day one.
-                </p>
-                <div style="margin-top: 25px;">
-                    <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 25px; background: var(--gradient); color: var(--darker-bg); text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s;">
-                        <i class="fas fa-arrow-left"></i> Back to Home
-                    </a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-    
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Xanite</h3>
-                    <p style="color: var(--gray-text); margin-top: 15px;">Open-source Xbox emulator for Android. Privacy-focused and community-driven.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-                        <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-                        <li><a href="#"><i class="fas fa-balance-scale"></i> Legal Notice</a></li>
-                        <li><a href="#"><i class="fas fa-copyright"></i> Copyright</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                        <li><a href="compatibility.html"><i class="fas fa-list-check"></i> Compatibility</a></li>
-                        <li><a href="https://github.com/dev-Ali2008/xanite" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-                        <li><a href="https://discord.gg/U5kytJ4dub" target="_blank"><i class="fab fa-discord"></i> Discord</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Connect</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://youtube.com/@emulator_xanite" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
-                        <li><a href="https://t.me/xanite_xbox" target="_blank"><i class="fab fa-telegram"></i> Telegram</a></li>
-                        <li><a href="https://www.patreon.com/Xanite_android" target="_blank"><i class="fab fa-patreon"></i> Patreon</a></li>
-                        <li><a href="mailto:contact@xanite-emulator.com"><i class="fas fa-envelope"></i> Email</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>© 2024 Xanite Emulator Project. All rights reserved. Xbox and Xbox 360 are trademarks of Microsoft Corporation.</p>
-                <p style="margin-top: 10px; color: var(--primary-color);">
-                    <i class="fas fa-code"></i> This is an independent, open-source project not affiliated with Microsoft.
-                </p>
-            </div>
+            <ul class="footer-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> <span data-i18n="nav.home">Home</span></a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> <span data-i18n="nav.faq">FAQ</span></a></li>
+            </ul>
+            <p class="copyright" data-i18n="copyright">© 2025 Xanite Emulator Project. All rights reserved.</p>
         </div>
     </footer>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            // Back to Top Button
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Highlight current section in view
-            const sections = document.querySelectorAll('.policy-section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            function highlightNavLink() {
-                let current = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (window.scrollY >= sectionTop - 150) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
+        function toggleMenu() {
+            const h = document.getElementById('hamburger');
+            const m = document.getElementById('mobileMenu');
+            h.classList.toggle('open');
+            m.classList.toggle('open');
+        }
+
+        const t = {
+            en: {
+                langName: "English",
+                nav: { home: "Home", faq: "FAQ", privacy: "Privacy" },
+                hero: { 
+                    title: "Privacy Policy", 
+                    desc: "Your privacy is important to us. This policy explains how we handle your data." 
+                },
+                s1: { 
+                    title: "Introduction", 
+                    desc: "Xanite Emulator is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information." 
+                },
+                s2: { 
+                    title: "Information We Collect", 
+                    desc: "We collect minimal data necessary to provide and improve our services. This includes device information for optimization." 
+                },
+                s3: { 
+                    title: "Data Security", 
+                    desc: "We implement industry-standard security measures to protect your information, including encryption and secure authentication." 
+                },
+                s4: { 
+                    title: "Your Rights", 
+                    desc: "You have the right to access, modify, or delete your personal data at any time. Contact us for any privacy concerns." 
+                },
+                copyright: "© 2025 Xanite Emulator Project. All rights reserved."
+            },
+            ar: {
+                langName: "العربية",
+                nav: { home: "الرئيسية", faq: "الأسئلة", privacy: "الخصوصية" },
+                hero: { 
+                    title: "سياسة الخصوصية", 
+                    desc: "خصوصيتك مهمة بالنسبة لنا. توضح هذه السياسة كيفية تعاملنا مع بياناتك." 
+                },
+                s1: { 
+                    title: "المقدمة", 
+                    desc: "محاكي Xanite ملتزم بحماية خصوصيتك. توضح سياسة الخصوصية هذه كيفية جمع معلوماتك واستخدامها وحمايتها." 
+                },
+                s2: { 
+                    title: "المعلومات التي نجمعها", 
+                    desc: "نجمع الحد الأدنى من البيانات اللازمة لتوفير خدماتنا وتحسينها. يتضمن ذلك معلومات الجهاز للتحسين." 
+                },
+                s3: { 
+                    title: "أمن البيانات", 
+                    desc: "نطبق تدابير أمنية معيارية في الصناعة لحماية معلوماتك، بما في ذلك التشفير والمصادقة الآمنة." 
+                },
+                s4: { 
+                    title: "حقوقك", 
+                    desc: "لك الحق في الوصول إلى بياناتك الشخصية أو تعديلها أو حذفها في أي وقت. اتصل بنا لأي مخاوف تتعلق بالخصوصية." 
+                },
+                copyright: "© 2025 مشروع محاكي Xanite. جميع الحقوق محفوظة."
             }
+        };
+        
+        let lang = 'en';
+        
+        document.getElementById('langSwitcher').addEventListener('click', function(e) {
+            if (!e.target.closest('.lang-option')) this.classList.toggle('active');
+        });
+        
+        document.addEventListener('click', function(e) {
+            const ls = document.getElementById('langSwitcher');
+            if (!ls.contains(e.target)) ls.classList.remove('active');
+        });
+        
+        function selectLanguage(l) {
+            lang = l;
+            localStorage.setItem('xanite-language', l);
+            applyLanguage(l);
+            document.getElementById('langSwitcher').classList.remove('active');
+        }
+        
+        function applyLanguage(l) {
+            const html = document.documentElement;
+            const tr = t[l];
             
-            window.addEventListener('scroll', highlightNavLink);
+            html.setAttribute('lang', l);
+            html.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
             
-            // Initialize
-            highlightNavLink();
+            document.getElementById('langText').textContent = tr.langName;
             
-            // Add keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                // Page up/down for quick navigation
-                if (e.key === 'PageDown' || e.key === 'PageUp') {
-                    e.preventDefault();
-                    const scrollAmount = window.innerHeight * 0.8;
-                    window.scrollBy({
-                        top: e.key === 'PageDown' ? scrollAmount : -scrollAmount,
-                        behavior: 'smooth'
-                    });
-                }
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.getAttribute('data-lang') === l);
             });
             
-            // Print-friendly version
-            const style = document.createElement('style');
-            style.textContent = `
-                @media print {
-                    header, footer, .policy-nav, .back-to-top {
-                        display: none !important;
-                    }
-                    
-                    .policy-section {
-                        break-inside: avoid;
-                        box-shadow: none !important;
-                        border: 1px solid #ccc !important;
-                    }
-                    
-                    body {
-                        background: white !important;
-                        color: black !important;
-                    }
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const keys = el.getAttribute('data-i18n').split('.');
+                let val = tr;
+                for (const k of keys) {
+                    val = val[k];
+                    if (!val) break;
                 }
-            `;
-            document.head.appendChild(style);
+                if (val) el.textContent = val;
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('xanite-language');
+            if (saved) applyLanguage(saved);
         });
     </script>
 </body>
